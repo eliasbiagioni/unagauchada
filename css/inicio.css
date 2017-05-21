@@ -11,3 +11,9 @@ body{
 .image{
     height: 230px;
 }
+
+.formulario {
+	padding: 10px;
+	border: 1px solid black;
+	width: 50%;
+}
