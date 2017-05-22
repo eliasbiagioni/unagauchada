@@ -6,13 +6,13 @@ body{
     height: 230px;
     top: 0;
     left: 0;
-    position: fixed;
 }
 .image{
     height: 230px;
 }
 
 .formulario {
+	margin-top: 20px;
 	padding: 10px;
 	border: 1px solid black;
 	width: 50%;

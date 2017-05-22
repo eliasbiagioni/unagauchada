@@ -1,6 +1,6 @@
 <?php
 	#Esto abre el formulario y especifica el action del mismo
-	echo form_open("mandarDatos",'class="formulario"');
+	echo form_open("application/models/mandarDatos.php",'name="mandarDatos" class="formulario" onsubmit="return validarFormulario()""');
 
 	#Estos son los arreglos con los datos que interesan para el input correspondiente
 	$nombre = array(
@@ -13,6 +13,10 @@
 
 	$codigo = array(
 		'name' => 'codigo' 
+	);
+
+	$cantidadCreditos = array(
+		'name' => 'cantidad'
 	);
 
 	$meses = array(
@@ -62,6 +66,10 @@
 
 	echo form_label('Año de vencimiento: ','anio');
 	echo form_dropdown('Año de vencimiento',$anios);
+	echo "<br><br>";
+
+	echo form_label('Cantidad de créditos: ','creditos');
+	echo form_input($cantidadCreditos);
 	echo "<br><br>";
 
 	echo form_submit('enviar','Comprar creditos');
