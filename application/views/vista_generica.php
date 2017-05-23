@@ -8,6 +8,3 @@
         <div class="image">
         <?php echo img($image_properties); ?>
         </div>
-        <h1><?= $mensaje ?></h1>
-    </body>
-</html>
