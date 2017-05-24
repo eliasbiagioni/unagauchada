@@ -9,7 +9,7 @@
         <div class="image"><?php echo img($image_properties); ?></div>
     <h1>Formulario de registro de usuario</h1>
     <div class="tabla">
-        <?= form_open_multipart('/inicio/validar_datos')?>
+        <?= form_open_multipart('/registrousuario/validar_datos')?>
         <!--INICIO TABLE DE FORMULARIO PARA REGISTRO!-->
         <table>
             <tr>

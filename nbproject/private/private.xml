@@ -5,9 +5,9 @@
         <group>
             <file>file:/C:/xampp/htdocs/unagauchada/application/models/nuevo_usuario_model.php</file>
             <file>file:/C:/xampp/htdocs/unagauchada/application/views/imag.php</file>
-            <file>file:/C:/xampp/htdocs/unagauchada/application/controllers/inicio.php</file>
             <file>file:/C:/xampp/htdocs/unagauchada/application/views/registro_usuario.php</file>
             <file>file:/C:/xampp/htdocs/unagauchada/css/formulario_registro.css</file>
+            <file>file:/C:/xampp/htdocs/unagauchada/application/controllers/registrousuario.php</file>
         </group>
     </open-files>
 </project-private>
