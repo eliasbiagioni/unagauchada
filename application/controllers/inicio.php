@@ -4,30 +4,37 @@ class Inicio extends CI_Controller {
     
     public function __construct(){
         parent::__construct();
-        $this->load->helper('url');
-        $this->load->helper('html');
-        $this->load->helper('form');
+        $this->load->library('../controllers/registrousuario');
     }
 
 
     public function index(){
-        $parameter['title'] = 'Una Gauchada';
-        $parameter['mensaje'] = 'Bienvenido al sitio';
+        $parameter['head'] = array(
+            "css2" => link_tag('css/imagen_principal.css'),
+            "css1" => link_tag('css/pagina_inicio.css'),
+        );
         $parameter['image_properties'] = array(
           'src' => 'images/unagauchada.png',
            'class' => 'size_image',
            );
-        $this->load->view('vista_generica', $parameter);
+        $parameter['submit_registro'] = array(
+            'name' => "registro",
+            'value' => "Registrarse",
+        );
+        $parameter['submit_inicio_sesion'] = array(
+            'name' => "inicio_sesion",
+            'value' => "Iniciar sesión",
+        );
+        $this->load->view('headers',$parameter);
+        $this->load->view('inicio',$parameter);
     }
-
-    function comprarCreditos(){
-        $parameter['title'] = 'Una Gauchada';
-        $parameter['mensaje'] = 'Bienvenido al sitio';
-        $parameter['image_properties'] = array(
-          'src' => 'images/unagauchada.png',
-           'class' => 'size_image',
-           );
-        $this->load->view('headers', $parameter);
-        $this->load->view('comprarCreditos');
+    
+    function redireccionar(){
+        if(isset($_POST['registro'])){
+            header('Location: '.base_url()."registrousuario");
+            }
+        else{
+            header('Location: '.base_url()."iniciosesion");
+        }
     }
 }

@@ -27,7 +27,7 @@
  */
 class CI_Upload {
 
-	public $max_size				= 0;
+	public $max_size				= 2;
 	public $max_width				= 0;
 	public $max_height				= 0;
 	public $max_filename			= 0;

@@ -1,9 +1,13 @@
 h1{
     text-align: center;
-};
-form{
+}
+table{
     margin: auto;
-};
+}
+
 .tamaño-campos{
     width: 100%;
+}
+p{
+    font-size: 15px;
 }

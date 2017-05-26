@@ -4,18 +4,33 @@ class Registrousuario extends CI_Controller {
     
     public function __construct(){
         parent::__construct();
-        $this->load->model('nuevo_usuario_model');
+        $this->load->model('usuario_model');
         $this->load->database();
         $this->load->library('form_validation');
+        $this->load->helper('date');
+        $this->validaciones();
+    }
+    
+    private function validaciones(){
         $this->form_validation->set_message('required', ' Campo obligatorio: %s');
         $this->form_validation->set_message('check_default', 'Campo obligatorio: %s');
-        $this->form_validation->set_message('valid_date', 'Campo obligatorio: %s');
+        $this->form_validation->set_message('valid_date', '%s no válida');
+        $this->form_validation->set_message('matches', 'Contraseñas no coinciden');
+        $this->form_validation->set_message('soloLetras', '%s no válido');
+        $this->form_validation->set_message('soloNumeros', '%s no válido');
+        $this->form_validation->set_message('valid_email', '%s no válido');
+        $this->form_validation->set_message('comprobarArchivoIngresado', '%s no válida');
+        $this->form_validation->set_message('is_unique', '%s ya existe'); 
+        $this->form_validation->set_message('mayor_de_edad', 'Eres menor de 18 años');
+        $this->form_validation->set_message('min_length', 'Numero de telefono demasiado corto');
+        $this->form_validation->set_message('max_length', 'Numero de telefono demasiado largo');
     }
 
-
     public function index(){
-        $parameter['title'] = 'Una Gauchada';
-        $parameter['mensaje'] = 'Bienvenido al sitio';
+        $parameter['head'] = array(
+            "css1" => link_tag('css/imagen_principal.css'),
+            "css2" => link_tag('css/formulario_registro.css'),
+        );
         $parameter['image_properties'] = array(
           'src' => 'images/unagauchada.png',
            'class' => 'size_image',
@@ -31,7 +46,7 @@ class Registrousuario extends CI_Controller {
                 'class' => 'tamaño-campos',
             );
         $parameter['telefono_usuario'] = array(
-                'type' => 'number',
+                'type' => 'text',
                 'name' => 'telefono_usuario',
                 'placeholder' => 'Escribe tu numero de telefono',
                 'class' => 'tamaño-campos',
@@ -67,58 +82,88 @@ class Registrousuario extends CI_Controller {
         $parameter['sexo_hombre'] = array(
                 'type' => 'radio',
                 'name' => 'sexo',
-                'value' => 'hombre',
+                'value' => 'Masculino',
             );
         $parameter['sexo_mujer'] = array(
                 'type' => 'radio',
                 'name' => 'sexo',
-                'value' => 'mujer',
+                'value' => 'Femenino',
             );
+        $parameter['imagen_usuario'] = array(
+            'type' => 'file',
+            'enctype' => 'multipart/form-data',
+            'name' => 'pic',
+        );
         $parameter['localidades'] = $this->db->get('localidades')->result();
+        $this->load->view('headers',$parameter);
         $this->load->view('registro_usuario',$parameter);
     }
 
     public function almacenar_datos(){
-        $url_imagen = $this->comprobar_imagen();
+        $url_imagen = $this->obtener_imagen();
+        $fecha = $this->correccionFecha();
         $data = array(
             'nombre_usuario' => $this->input->post('nombre_usuario'),
-            'id_localidad' => 1,
+            'apellido_usuario' => $this->input->post('apellido_usuario'),
+            'id_localidad' => $this->input->post('ciudades'),
+            'fecha_nacimiento' => $fecha,
+            'sexo_usuario' => $this->input->post('sexo'),
+            'es_administrador' => FALSE,
+            'telefono_usuario' => $this->input->post('telefono_usuario'),
+            'mail_usuario' => $this->input->post('mail_usuario'),
+            'puntos_usuario' => 1,
+            'creditos_usuario' => 1,
+            'contraseña_usuario' => $this->input->post('contrasenia_primera'),
             'foto_usuario' => $url_imagen['contenido'],
             'extension_foto' => $url_imagen['extension'],
-            'fecha_nacimiento' => $this->input->post('fecha'),
-        );
-        $this->nuevo_usuario_model->almacenar_usuario($data);
+            );
+        $this->usuario_model->almacenar_usuario($data);
         $this->index();
     }
     
-    private function comprobar_imagen(){
+    public function obtener_imagen(){
         if($_FILES['pic']['name']){
-            $nombre = $_FILES['pic']['name'];
-            $extension = end(explode(".", $_FILES['pic']['name']));
-            $tmp = $_FILES['pic']['tmp_name'];
-            $url = "./images/uploads/".uniqid(rand()).$nombre;
-            move_uploaded_file($tmp, $url);
-            $contenido = file_get_contents($url);
-            $propiedades_imagen['contenido'] = $contenido;
-            $propiedades_imagen['extension'] = $extension;
-        }
+            $image = $_FILES['pic'];
+            $var = array(
+			'type' => $image['type'],
+			'tmp_name' => $image['tmp_name']
+                );
+            $pepe = file_get_contents($var['tmp_name']);
+            $pepe2 = $var['type'];
+            $propiedades_imagen['contenido'] = $pepe;
+            $propiedades_imagen['extension'] = $pepe2;
+            }
         else{
             $propiedades_imagen['contenido'] = NULL;
-            $propiedades_imagen['extension'] = NULL;
-        }
+            $propiedades_imagen['extension'] = NULL;}
         return $propiedades_imagen;
     }
-    
+
+    function comprobarArchivoIngresado(){
+        if($_FILES['pic']['name']){
+            $extension_archivo = end(explode(".", $_FILES['pic']['name']));
+            if(($extension_archivo == 'jpg') || ($extension_archivo == 'png') || ($extension_archivo == 'jpeg')) {
+                return TRUE;
+            }
+            else{
+                return FALSE;
+            }
+        }
+    }
     public function validar_datos(){
-        $this->form_validation->set_rules('nombre_usuario', 'Nombre', 'required');
-        $this->form_validation->set_rules('apellido_usuario', 'Apellido', 'required');
+        $this->form_validation->set_rules('nombre_usuario', 'Nombre', 'required|callback_soloLetras');
+        $this->form_validation->set_rules('apellido_usuario', 'Apellido', 'required|callback_soloLetras');
         $this->form_validation->set_rules('ciudades', 'Localidad', 'required|callback_check_default');
-        $this->form_validation->set_rules('fecha', 'Fecha de nacimiento', 'trim|required|callback_valid_date');
-        $this->form_validation->set_rules('mail_usuario', 'Mail', 'required');
+        $this->form_validation->set_rules('fecha', 'Fecha de nacimiento', 'trim|required|callback_valid_date|callback_mayor_de_edad');
+        $this->form_validation->set_rules('mail_usuario', 'Mail', 'trim|required|valid_email|is_unique[usuarios_registrados.mail_usuario]');
+        $this->form_validation->set_rules('telefono_usuario', 'Telefono', 'trim|required|callback_soloNumeros|min_length[8]|max_length[12]|is_unique[usuarios_registrados.telefono_usuario]');
         $this->form_validation->set_rules('contrasenia_primera', 'Contraseña', 'required');
-        $this->form_validation->set_rules('contrasenia_repetida', 'Repetir contraseña', 'required');
+        $this->form_validation->set_rules('contrasenia_repetida', 'Repetir contraseña', 'required|matches[contrasenia_primera]');
+        $this->form_validation->set_rules('pic', 'Imagen', 'callback_comprobarArchivoIngresado');
         if($this->form_validation->run() == FALSE){
             $this->index();
+        }else{
+            $this->almacenar_datos();
         }
     }
     
@@ -126,14 +171,46 @@ class Registrousuario extends CI_Controller {
         return $post_string == '0' ? FALSE : TRUE;
     }
     
-    public function valid_date($date){
-        if (!DateTime::createFromFormat('d-m-y', $date)) //yes it's YYYY-MM-DD
-        {
-            return FALSE;
-        }
-        else    
-        {
-            return TRUE;
+    function valid_date($date){
+    $pattern="/^(0?[1-9]|[12][0-9]|3[01])[\/|-](0?[1-9]|[1][012])[\/|-]((19|20)?[0-9]{2})$/";
+    if(preg_match($pattern,$date)){
+        $values=preg_split("[\/|-]",$date);
+        if(checkdate($values[1],$values[0],$values[2])){
+            return true;
         }
     }
+    return false;
+    }
+    
+    function soloLetras($in){
+        $pattern = "/[^a-zA-Z\-_]/";
+        if(preg_match($pattern,$in)){
+            return false;
+        }
+        else{ return true;
+        }
+    }
+    
+    function soloNumeros($in){
+        $pattern = "/[^0-9\-_]/";
+        if(preg_match($pattern,$in)){
+            return false;
+        }
+        else{ return true;
+        }
+    }
+     function mayor_de_edad($fecha){
+        $fecha1 = str_replace("/","-",$fecha);
+        $fecha2 = date('Y/m/d',strtotime($fecha1));
+        $hoy = date('Y/m/d');
+        $edad = $hoy - $fecha2;
+        if($edad >= 18){return TRUE;}else{return FALSE;}
+     }
+     function correccionFecha(){
+         $fecha = $this->input->post('fecha');
+         $correccion = explode('/', $fecha);
+         $fecha_sql = $correccion[2]."-".$correccion[0]."-".$correccion[1];
+         return $fecha_sql;
+     }
+    
 }

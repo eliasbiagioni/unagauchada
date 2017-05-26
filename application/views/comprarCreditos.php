@@ -1,78 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Comprar creditos</title>
+	<script type="text/javascript" src="js/validarDatos.js"></script>
+	<link rel="stylesheet" href="css/inicio.css">
+</head>
+<body>
+
+ <div class="image"><?php echo img($image_properties); ?></div>
+
 <?php
-	#Esto abre el formulario y especifica el action del mismo
-	echo form_open("application/models/mandarDatos.php",'name="mandarDatos" class="formulario" onsubmit="return validarFormulario()""');
-
-	#Estos son los arreglos con los datos que interesan para el input correspondiente
-	$nombre = array(
-		'name' => 'nombre'
-	);
-
-	$numeroTarjeta = array(
-		'name' => 'numeroTarjeta'
-	);
-
-	$codigo = array(
-		'name' => 'codigo' 
-	);
-
-	$cantidadCreditos = array(
-		'name' => 'cantidad'
-	);
-
-	$meses = array(
-		'1' => '01',
-		'2' => '02',
-		'3' => '03',
-		'4' => '04',
-		'5' => '05', 
-		'6' => '06',
-		'7' => '07',
-		'8' => '08',
-		'9' => '09',
-		'10' => '10',
-		'11' => '11',
-		'12' => '12',
-	);
-
-	$anios = array(
-		'1' => '2017',
-		'2' => '2018',
-		'3' => '2019',
-		'4' => '2020',
-		'5' => '2021', 
-	);
-
-?>
-	<h1>Comprar créditos</h1>
-<?php
-
-
+	echo form_open("creditos/mandarDatos",'name="mandarDatos" class="formulario" onsubmit="return validarFormulario()""');
 	#Lables and inputs
+
+	echo "<h1>$mensaje</h1>";
 	echo form_label('Nombre y apellido: ','nombre');
-	echo form_input($nombre);
+	echo form_input($form['nombre']);
 	echo "<br><br>";
 
 	echo form_label('Número de la tarjeta: ','numeroTarjeta');
-	echo form_input($numeroTarjeta);
+	echo form_input($form['numeroTarjeta']);
 	echo "<br><br>";
 
 	echo form_label('Código de seguridad: ','codigo');
-	echo form_input($codigo);
+	echo form_input($form['codigo']);
 	echo "<br><br>";
 
 	echo form_label('Mes de vencimiento: ','mes');
-	echo form_dropdown('Mes de vencimiento',$meses);
+	echo form_dropdown('Mes de vencimiento',$form['meses']);
 	echo "<br><br>";
 
-	echo form_label('Año de vencimiento: ','anio');
-	echo form_dropdown('Año de vencimiento',$anios);
+	echo form_label('Anio de vencimiento: ','anio');
+	echo form_dropdown('Anio de vencimiento',$form['anios']);
 	echo "<br><br>";
 
 	echo form_label('Cantidad de créditos: ','creditos');
-	echo form_input($cantidadCreditos);
+	echo form_input($form['cantidadCreditos']);
 	echo "<br><br>";
 
 	echo form_submit('enviar','Comprar creditos');
+
+	echo "<br><br> * Este formulario tiene por defecto asignarle los creditos comprados al usuario con id 13 (Fernando Borgognoni)";
 ?>
 <?= form_close()?>
 </body>

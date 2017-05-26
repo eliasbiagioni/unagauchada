@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <?=  link_tag('css/inicio.css') ?>
-        <?=  link_tag('css/formulario_registro.css') ?>
-        <title><?= $title ?></title>
-    </head>
-    <body>
-        <div class="image"><?php echo img($image_properties); ?></div>
-    <h1>Formulario de registro de usuario</h1>
-    <div class="tabla">
-        <?= form_open_multipart('/registrousuario/validar_datos')?>
+
+        <h1>Formulario de registro de usuario</h1><br>
+        <div>
+            <?= form_open_multipart('/registrousuario/validar_datos')?>
         <!--INICIO TABLE DE FORMULARIO PARA REGISTRO!-->
         <table>
             <tr>
@@ -57,10 +49,13 @@
             </tr>
             <tr>
                 <td><?= form_label('Foto de usuario*: ') ?></td>
-                <td> <?= form_upload('pic')?></td>
+                <td> <?= form_upload($imagen_usuario)?></td>
             </tr>
             <tr>
                 <td><?= form_submit('','Almacenar usuario') ?></td>
+            </tr>
+            <tr>
+                <td><p class="aver">Los campos con * son opcionales</p></td>
             </tr>
         </table>
         <?= form_close() ?>
