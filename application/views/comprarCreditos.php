@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Comprar creditos</title>
-	<script type="text/javascript" src="js/validarDatos.js"></script>
-	<link rel="stylesheet" href="css/inicio.css">
-</head>
-<body>
-
- <div class="image"><?php echo img($image_properties); ?></div>
+    <head>
+        <link href="http://localhost/unagauchada/css/imagen_principal.css" rel="stylesheet" type="text/css" />
+        <link href="http://localhost/unagauchada/css/compra_creditos.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" charset="utf-8" src="http://localhost/unagauchada/js/validarDatos.js"></script>
+        <title>Una gauchada</title>
+    </head>
+    <body>
+        <div>
+        	<img src="http://localhost/unagauchada/images/unagauchada.png" class="size_image" alt=""/>        </div>
 
 <?php
 	echo form_open("creditos/mandarDatos",'name="mandarDatos" class="formulario" onsubmit="return validarFormulario()""');

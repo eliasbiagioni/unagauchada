@@ -5,16 +5,13 @@ class Creditos extends CI_Controller {
 	public function __construct(){
         parent::__construct();
         $this->load->model('mandarDatos');
+        $this->load->library('javascript');
         $this->load->database();
     }
 
 	public function index(){
 		$parameter['title'] = 'Una Gauchada';
-        $parameter['mensaje'] = 'Comprar creditos';
-        $parameter['image_properties'] = array(
-          'src' => 'images/unagauchada.png',
-           'class' => 'size_image',
-         );
+                $parameter['mensaje'] = 'Comprar creditos';
 		$parameter['form'] = $this->crearFormulario();
 		$this->load->view('comprarCreditos',$parameter);
 	}

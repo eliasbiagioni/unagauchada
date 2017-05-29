@@ -21,7 +21,15 @@ class Usuario_model extends CI_Model{
             'puntos_usuario' => $data['puntos_usuario'],
             'creditos_usuario' => $data['puntos_usuario'],
             'contraseña_usuario' => $data['contraseña_usuario'],
-            'sexo_usuario' => $data['sexo_usuario'],
                 ));
+    }
+    
+    function obtenerDatosSesion($email = ''){
+        $consulta = $this->db->query("SELECT id_usuario,mail_usuario,contraseña_usuario,nombre_usuario,apellido_usuario,es_administrador FROM usuarios_registrados WHERE mail_usuario = '".$email ."'");
+        if($consulta->num_rows() > 0){
+            return $consulta->row();
+        }else{
+            return NULL;
+        }
     }
 }

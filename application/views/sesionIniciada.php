@@ -2,25 +2,31 @@
 <html>
     <head>
         <link href="http://localhost/unagauchada/css/imagen_principal.css" rel="stylesheet" type="text/css" />
-        <link href="http://localhost/unagauchada/css/sesionIniciada.css" rel="stylesheet" type="text/css" />  
+        <link href="http://localhost/unagauchada/css/sesionIniciada.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" charset="utf-8" src="http://localhost/unagauchada/js/botonAtras.js"></script>
         <title>Una gauchada</title>
     </head>
-    <body>
-        <img src="http://localhost/unagauchada/images/unagauchada.png" class="size_image" alt=""/>
-<div class="pag_inicio">
-    
-    
-</div>
+        
+<body onload="nobackbutton();">
+    <div>
+       	<img src="http://localhost/unagauchada/images/unagauchada.png" class="size_image" alt=""/>
+    </div>
     <div class="barraInicial longitud">
         <div class="bienvenido">
-                Bienvenido al sitio
+                Bienvenido, <?php echo $this->session->userdata('nombre').' '.$this->session->userdata('apellido')?>
         </div>
-        <ul id="button">
-            <li><a href="<?php echo base_url()?>registrousuario">Registrarse</a></li>
-            <li><a href="<?php echo base_url()?>iniciosesion">Iniciar sesión</a></li>
-        </ul>
+        
+            <ul id="button">
+                <?php if($this->session->userdata('es_administrador') == 1){ ?>
+                    <li><a href="<?= base_url().'iniciosesion/administrarPagina' ?>">Administrar</a></li>
+                 <?php } ?>
+                <li><a href="<?= base_url().'iniciosesion/verPerfilUsuario' ?>">Ver perfil</a></li>
+                <li><a href="<?= base_url().'publicar_gauchada' ?>">Nueva gauchada</a></li>
+                <li><a href="<?= base_url().'creditos' ?>">Comprar créditos</a></li>
+                <li><a href="<?= base_url().'iniciosesion/cerrar_sesion' ?>">Cerrar sesión</a></li>
+            </ul>
     </div>
-<hr class="longitud">
+    <hr class="longitud">
     <?php for ($i = 1; $i <= 3; $i++){ ?>
     <div class="contenedorGauchadas">
         <div class="gauchada izquierda">

@@ -3,11 +3,19 @@ function validarFormulario() {
     var numeroTarjeta = document.forms["mandarDatos"]["numeroTarjeta"].value;
     var nombre = document.forms["mandarDatos"]["nombre"].value;
     var cantidad = document.forms["mandarDatos"]["cantidad"].value;
+    var mesIngresado = document.forms["mandarDatos"]["Mes de vencimiento"].value;
+    var anioIngresado = document.forms["mandarDatos"]["Anio de vencimiento"].value;
 
     var letras=/^[A-Za-z\_\-\.\s\xF1\xD1]+$/;
     var numeros = /^[0-9]+$/;
+
+    var fecha = new Date();
+    var mesActual = (fecha.getMonth() + 1); 
+    var anioActual = fecha.getFullYear();
+
+ 
     if (! letras.test(nombre)){
-        alert("El nombre del titular no debe tener numeros");
+        alert("El nombre del titular no debe tener numeros ni estar vacío");
         return false;
     }
     if (!(numeros.test(cantidad) || !(numeros.test(numeroTarjeta)) || !(numeros.test(codigo)))){
@@ -28,5 +36,26 @@ function validarFormulario() {
     	alert("El número de tarjeta debe tener 16 dígitos!");
 	    return false;
     }
+
+    if (anioIngresado < anioActual) {
+        alert("Tu tarjeta esta vencida");
+        return false;
+    }
+    else {
+        if (anioIngresado == anioActual){
+            if (mesIngresado < mesActual){
+                alert("Tu tarjeta esta vencida");
+                return false;
+            }
+        }
+    }
+    var valor = (cantidad * 50);
+    if (confirm('¿Está seguro que quiere comprar ' + cantidad + ' créditos a un valor de $' + valor + '?')){
+       document.tuformulario.submit()
+    }
+    else {
+        return false;
+    }
+
 }
 

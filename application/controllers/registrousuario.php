@@ -12,8 +12,8 @@ class Registrousuario extends CI_Controller {
     }
     
     private function validaciones(){
-        $this->form_validation->set_message('required', ' Campo obligatorio: %s');
-        $this->form_validation->set_message('check_default', 'Campo obligatorio: %s');
+        $this->form_validation->set_message('required', ' Campo obligatorio');
+        $this->form_validation->set_message('check_default', 'Campo obligatorio');
         $this->form_validation->set_message('valid_date', '%s no válida');
         $this->form_validation->set_message('matches', 'Contraseñas no coinciden');
         $this->form_validation->set_message('soloLetras', '%s no válido');
@@ -27,14 +27,6 @@ class Registrousuario extends CI_Controller {
     }
 
     public function index(){
-        $parameter['head'] = array(
-            "css1" => link_tag('css/imagen_principal.css'),
-            "css2" => link_tag('css/formulario_registro.css'),
-        );
-        $parameter['image_properties'] = array(
-          'src' => 'images/unagauchada.png',
-           'class' => 'size_image',
-           );
         $parameter['nombre_usuario'] = array(
                 'name' => 'nombre_usuario',
                 'placeholder' => 'Escribe tu nombre',
@@ -79,23 +71,12 @@ class Registrousuario extends CI_Controller {
                 'placeholder' => 'dd/mm/yyyy',
                 'class' => 'tamaño-campos',
             );
-        $parameter['sexo_hombre'] = array(
-                'type' => 'radio',
-                'name' => 'sexo',
-                'value' => 'Masculino',
-            );
-        $parameter['sexo_mujer'] = array(
-                'type' => 'radio',
-                'name' => 'sexo',
-                'value' => 'Femenino',
-            );
         $parameter['imagen_usuario'] = array(
             'type' => 'file',
             'enctype' => 'multipart/form-data',
             'name' => 'pic',
         );
         $parameter['localidades'] = $this->db->get('localidades')->result();
-        $this->load->view('headers',$parameter);
         $this->load->view('registro_usuario',$parameter);
     }
 
@@ -107,7 +88,6 @@ class Registrousuario extends CI_Controller {
             'apellido_usuario' => $this->input->post('apellido_usuario'),
             'id_localidad' => $this->input->post('ciudades'),
             'fecha_nacimiento' => $fecha,
-            'sexo_usuario' => $this->input->post('sexo'),
             'es_administrador' => FALSE,
             'telefono_usuario' => $this->input->post('telefono_usuario'),
             'mail_usuario' => $this->input->post('mail_usuario'),
@@ -151,7 +131,7 @@ class Registrousuario extends CI_Controller {
         }
     }
     public function validar_datos(){
-        $this->form_validation->set_rules('nombre_usuario', 'Nombre', 'required|callback_soloLetras');
+        $this->form_validation->set_rules('nombre_usuario', 'Nombre', 'trim|required|callback_soloLetras');
         $this->form_validation->set_rules('apellido_usuario', 'Apellido', 'required|callback_soloLetras');
         $this->form_validation->set_rules('ciudades', 'Localidad', 'required|callback_check_default');
         $this->form_validation->set_rules('fecha', 'Fecha de nacimiento', 'trim|required|callback_valid_date|callback_mayor_de_edad');
@@ -181,9 +161,10 @@ class Registrousuario extends CI_Controller {
     }
     return false;
     }
-    
+    #"|^[a-zA-Z]+(\s*[a-zA-Z]*)*[a-zA-Z]+$|"
+    #"/[^a-zA-Z\-_]/"
     function soloLetras($in){
-        $pattern = "/[^a-zA-Z\-_]/";
+        $pattern = "|^[a-zA-Z]+(\s*[a-zA-Z]*)*[a-zA-Z]+$|";
         if(preg_match($pattern,$in)){
             return false;
         }
@@ -209,7 +190,7 @@ class Registrousuario extends CI_Controller {
      function correccionFecha(){
          $fecha = $this->input->post('fecha');
          $correccion = explode('/', $fecha);
-         $fecha_sql = $correccion[2]."-".$correccion[0]."-".$correccion[1];
+         $fecha_sql = $correccion[2]."-".$correccion[1]."-".$correccion[0];
          return $fecha_sql;
      }
     

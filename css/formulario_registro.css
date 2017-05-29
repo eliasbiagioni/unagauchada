@@ -1,8 +1,10 @@
 h1{
     text-align: center;
 }
-table{
+.contenedorRegistro{
     margin: auto;
+    width: 400px;
+    height: 940px;
 }
 
 .tamaño-campos{
@@ -10,4 +12,20 @@ table{
 }
 p{
     font-size: 15px;
+}
+.centrado_algo{
+    text-align: center;
+    margin: auto;
+    width: 25%;
+}
+span{
+    color:red;
+}
+.olvidoContraseña{
+    color: blue;
+    text-decoration: none;
+    font-size: 14px;  
+}
+.letra{
+    font-family: sans-serif;
 }
