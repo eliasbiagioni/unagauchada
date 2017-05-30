@@ -29,3 +29,10 @@ span{
 .letra{
     font-family: sans-serif;
 }
+
+.contenedorRegistroGauchada{
+    margin: auto;
+    width: 500px;
+    height: 940px;
+    
+}
