@@ -36,11 +36,12 @@ function validarFormulario() {
     	alert("El número de tarjeta debe tener 16 dígitos!");
 	    return false;
     }
-
     if (anioIngresado < anioActual) {
         alert("Tu tarjeta esta vencida");
         return false;
     }
+
+
     else {
         if (anioIngresado == anioActual){
             if (mesIngresado < mesActual){
