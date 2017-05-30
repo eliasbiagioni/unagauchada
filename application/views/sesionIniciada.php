@@ -21,7 +21,7 @@
                     <li><a href="<?= base_url().'iniciosesion/administrarPagina' ?>">Administrar</a></li>
                  <?php } ?>
                 <li><a href="<?= base_url().'iniciosesion/verPerfilUsuario' ?>">Ver perfil</a></li>
-                <li><a href="<?= base_url().'publicar_gauchada' ?>">Nueva gauchada</a></li>
+                <li><a href="<?= base_url().'iniciosesion/validarPublicacionGauchada' ?>">Nueva gauchada</a></li>
                 <li><a href="<?= base_url().'creditos' ?>">Comprar créditos</a></li>
                 <li><a href="<?= base_url().'iniciosesion/cerrar_sesion' ?>">Cerrar sesión</a></li>
             </ul>

@@ -7,10 +7,6 @@
     </head>
     <body>
         <img src="http://localhost/unagauchada/images/unagauchada.png" class="size_image" alt=""/>
-<div class="pag_inicio">
-    
-    
-</div>
     <div class="barraInicial longitud">
         <div class="bienvenido">
                 Bienvenido al sitio

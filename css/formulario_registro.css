@@ -3,8 +3,8 @@ h1{
 }
 .contenedorRegistro{
     margin: auto;
-    width: 400px;
-    height: 940px;
+    width: 30%;
+    padding: 10px;
 }
 
 .tamaño-campos{
@@ -32,7 +32,7 @@ span{
 
 .contenedorRegistroGauchada{
     margin: auto;
-    width: 500px;
-    height: 940px;
+    width: 37%;
+    padding: 10px;
     
 }
