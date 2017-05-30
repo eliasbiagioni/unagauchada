@@ -7,16 +7,16 @@ class Publicar_gauchada_model extends CI_Model {
         $this->load->database();
     }
     
-    function almacenar_creditos($data){
-        echo $data['titulo'];
-        echo "<br>";
-        echo $data['descripcion'];
-        echo "<br>";
-        echo $data['localidad'];
-        echo "<br>";
-        echo $data['categoria'];
-        echo "<br>";
-        echo $data['cantDias'];
+    function almacenar_gauchada($data){
+        $this->db->insert('favores',array(
+            'fecha_expiracion' => $data['expiracion'],
+            'contenido_imagen' => $data['contenido_imagen'],
+            'extension_imagen' => $data['extension_imagen'],
+            'contenido_favor' => $data['descripcion'],
+            'id_categoria' => $data['categoria'],
+            'id_localidad' => $data['localidad'],
+            'id_usuario_dueño' => $data['usuario'],
+        ));
     }
 
 }

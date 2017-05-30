@@ -162,9 +162,9 @@ class Registrousuario extends CI_Controller {
     return false;
     }
     #"|^[a-zA-Z]+(\s*[a-zA-Z]*)*[a-zA-Z]+$|"
-    #"/[^a-zA-Z\-_]/"
+    #"/[^a-zA-Z[:space:]\-_]/" 
     function soloLetras($in){
-        $pattern = "|^[a-zA-Z]+(\s*[a-zA-Z]*)*[a-zA-Z]+$|";
+        $pattern = "/[^a-zA-Z[:space:]\-_]/";
         if(preg_match($pattern,$in)){
             return false;
         }
