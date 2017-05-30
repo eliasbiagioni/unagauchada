@@ -7,16 +7,17 @@
         <link href="http://localhost/unagauchada/css/sesionIniciada.css" rel="stylesheet" type="text/css" />
         <link href="http://localhost/unagauchada/css/formulario_registro.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
+<body onload="nobackbutton();">
     <div>
         <img src="http://localhost/unagauchada/images/unagauchada.png" class="size_image" alt=""/>
     </div>
     <div class="barraInicial">    
             <ul id="button">
-                <li><a href="<?= base_url() ?>sesionIniciada">Volver a la pagina de inicio</a></li>
+                <li><a href="<?= base_url() ?>publicar_gauchada/volverAInicio">Volver a la pagina de inicio</a></li>
             </ul>
     </div>
-    <h1 class="letra">Formulario de registro de usuario</h1><br>
+    <h1 class="letra">Nueva gauchada</h1><br>
+    <?= 'Creditos: '.$creditos ?>
     <div  class="contenedorRegistroGauchada letra">
         <?= form_open_multipart("Publicar_gauchada/validar_datos")?>
         <div>

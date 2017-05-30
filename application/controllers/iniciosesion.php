@@ -61,18 +61,11 @@ class Iniciosesion extends CI_Controller {
                     'nombre' => $resultado->nombre_usuario,
                     'apellido' => $resultado->apellido_usuario,
                     'es_administrador' => $resultado->es_administrador,
+                    'creditos_usuario' => $resultado->creditos_usuario,
                     'login' => TRUE,
                 );
                 $this->session->set_userdata($data);
-                $parameter['head'] = array(
-                    "css2" => link_tag('css/imagen_principal.css'),
-                    'js' => $this->javascript->external('js/botonAtras.js'),
-                    );
-                $parameter['image_properties'] = array(
-                    'src' => 'images/unagauchada.png',
-                    'class' => 'size_image',
-                );
-                $this->load->view('sesionIniciada',$parameter);
+                $this->load->view('sesionIniciada');
             }
             else{
                 echo "Contraseña mal ingresada";
@@ -89,5 +82,15 @@ class Iniciosesion extends CI_Controller {
     
     function verPerfilUsuario(){
         $this->load->view('verPerfilUsuario');
+    }
+    
+    function validarPublicacionGauchada(){
+        $cantCreditos = $this->session->userdata('creditos_usuario');
+        if($cantCreditos > 0){
+            header('Location: '.base_url().'publicar_gauchada');
+        }else{
+            $mensaje = 'No posee la cantidad de creditos suficiente para publicar una gauchada';
+            $this->load->view('mensajes',$mensaje);
+        } 
     }
 }

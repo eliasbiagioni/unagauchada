@@ -98,7 +98,8 @@ class Registrousuario extends CI_Controller {
             'extension_foto' => $url_imagen['extension'],
             );
         $this->usuario_model->almacenar_usuario($data);
-        $this->index();
+        $parameter['mensaje'] = 'Registro exitoso';
+        $this->load->view('mensajes',$parameter);
     }
     
     public function obtener_imagen(){

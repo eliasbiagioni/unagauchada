@@ -7,14 +7,16 @@ class Publicar_gauchada extends CI_Controller {
         $this->load->library('form_validation');
         $this->load->helper('date');
         $this->load->model('Publicar_gauchada_model');
+        $this->load->model('usuario_model');
         $this->load->database();
         $this->validaciones();
     }
 
 	public function index(){
+                $parameter['creditos'] = $this->session->userdata('creditos_usuario');
 		$parameter['title'] = 'Una Gauchada';
-	    $parameter['mensaje'] = 'Publicar gauchada';
-	    $parameter['image_properties'] = array(
+                $parameter['mensaje'] = 'Publicar gauchada';
+                $parameter['image_properties'] = array(
 	      'src' => 'images/unagauchada.png',
 	       'class' => 'size_image',
 	     );
@@ -123,7 +125,15 @@ class Publicar_gauchada extends CI_Controller {
                 'usuario' => $this->session->userdata('id'),
         );
             $this -> Publicar_gauchada_model -> almacenar_gauchada($data);
-            echo $expiracion;
+            $creditos = $this->session->userdata('creditos_usuario');
+            $creditos--;
+            $parametros = array(
+              'id' => $this->session->userdata('id'),
+              'creditos' => $creditos,
+            );
+            $this->usuario_model->actualizarCreditos($parametros);
+            $parameter['mensaje'] = 'Gauchada publicada. Creditos ahora: '.$creditos;
+            $this->load->view('mensajes',$parameter);
         }
         
         function check_default($post_string){
@@ -143,5 +153,18 @@ class Publicar_gauchada extends CI_Controller {
          $correccion = explode('-', $fecha);
          $fecha_sql = $correccion[0]."-".$correccion[2]."-".$correccion[1];
          return $fecha_sql;
+     }
+     
+     function volverAInicio(){
+         $data = array(
+            'email' => $this->session->userdata('email'),
+            'id' => $this->session->userdata('id'),
+            'nombre' => $this->session->userdata('nombre'),
+            'apellido' => $this->session->userdata('apellido'),
+            'es_administrador' => $this->session->userdata('es_administrador'),
+            'login' => TRUE,
+         );
+         $this->session->set_userdata($data);
+                $this->load->view('sesionIniciada');
      }
 }

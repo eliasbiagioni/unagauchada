@@ -20,6 +20,7 @@
                 <li><a href="<?= base_url().'iniciosesion/editarPerfil' ?>">Editar perfil</a></li>
                 <li><a href="<?= base_url().'gauchadas/verMisGauchadas' ?>">Ver mis gauchadas pedidas</a></li>
                 <li><a href="<?= base_url().'gauchadas/verGauchadasQueMePostule' ?>">Ver gauchadas a las que fui/soy candidato</a></li>
+                <li><a href="<?= base_url() ?>publicar_gauchada/volverAInicio">Volver a la pagina de inicio</a></li>
             </ul>
     </div>
 </body>

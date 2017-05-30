@@ -25,11 +25,19 @@ class Usuario_model extends CI_Model{
     }
     
     function obtenerDatosSesion($email = ''){
-        $consulta = $this->db->query("SELECT id_usuario,mail_usuario,contraseña_usuario,nombre_usuario,apellido_usuario,es_administrador FROM usuarios_registrados WHERE mail_usuario = '".$email ."'");
+        $consulta = $this->db->query("SELECT id_usuario,mail_usuario,contraseña_usuario,nombre_usuario,apellido_usuario,es_administrador,creditos_usuario FROM usuarios_registrados WHERE mail_usuario = '".$email ."'");
         if($consulta->num_rows() > 0){
             return $consulta->row();
         }else{
             return NULL;
         }
+    }
+    
+    function cant_creditos($idLogueado){
+        return $this->db->query("SELECT creditos_usuario FROM usuarios_registrados WHERE id_usuario = '".$idLogueado."'")->row();
+    }
+    
+    function actualizarCreditos($parametros){
+        $this->db->query("UPDATE usuarios_registrados SET creditos_usuario = '".$parametros['creditos']."' WHERE id_usuario = '".$parametros['id']."'");
     }
 }
