@@ -40,6 +40,9 @@
                 <div class="nombreGauchada derecha">Dueño: <?= $gauchada->nombre_usuario." ".$gauchada->apellido_usuario?></div>
                 <div class="nombreGauchada derecha">Localidad: <?= $gauchada->nombre_localidad ?></div>
                 <div class="nombreGauchada derecha">Categoría: <?= $gauchada->nombre_categorias ?></div>
+				
+				
+				<div class="nombreGauchada derecha">Categoría: <?= $gauchada->nombre_categorias ?></div>
             </div>
     </div>
     <br>
