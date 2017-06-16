@@ -37,14 +37,9 @@
                 <div class="imagenGauchada izquierda"><img src="<?= $source_imagen ?>" width="190px" height="130px" alt=""/></div>
                 <div class="nombreGauchada derecha"><a href="<?= base_url().'verGauchadaCompleta?num='.$gauchada->id_favor ?>"><?= $gauchada->titulo_favor?></a></div>
 
-                <h1> Holaaaaaaa chicos como anadna</h1>
-
                 <div class="nombreGauchada derecha">Dueño: <?= $gauchada->nombre_usuario." ".$gauchada->apellido_usuario?></div>
                 <div class="nombreGauchada derecha">Localidad: <?= $gauchada->nombre_localidad ?></div>
                 <div class="nombreGauchada derecha">Categoría: <?= $gauchada->nombre_categorias ?></div>
-				
-				
-				<div class="nombreGauchada derecha">Categoría: <?= $gauchada->nombre_categorias ?></div>
             </div>
     </div>
     <br>
