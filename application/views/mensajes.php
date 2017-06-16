@@ -34,12 +34,9 @@
                         <li><a href="<?php echo base_url()?>iniciosesion">Iniciar sesión</a></li>
                         <li><a href="<?php echo base_url()?>inicio">Volver al inicio</a></li>
                         <?php break;
-<<<<<<< HEAD
-=======
                 case "Se ha actualizado tu Perfil":  ?>
                         <li><a href="<?= base_url() ?>publicar_gauchada/volverAInicio">Volver a la pagina de inicio</a></li>
                         <?php break;
->>>>>>> origin/master
                 default:  } ?>
         </ul>
     </div>
