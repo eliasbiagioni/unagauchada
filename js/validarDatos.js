@@ -28,7 +28,7 @@ function validarFormulario() {
     	return false;
     }
     if ( (codigo.length != 3)  || (! numeros.test(codigo)) ){
-    	alert("El código de seguridad debe tener 3 dígitos!");
+    	alert("El código de seguridad debe tener 3 dígitos numericos!");
 	    return false;
     }
 

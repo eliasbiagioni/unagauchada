@@ -72,7 +72,11 @@ ul{
     margin: auto;
     text-align: center;
     color: #fff;
+<<<<<<< HEAD
     word-wrap: break-word;
+=======
+    
+>>>>>>> origin/master
 }
 .nombreGauchada a{
     text-decoration: none;
@@ -85,6 +89,7 @@ ul{
     width: 600px;
     height: 130px;
     border: 1px solid black;
+<<<<<<< HEAD
 }
 
 .derecha{
@@ -95,4 +100,24 @@ ul{
 }
 .izquierda{
     float: left;
+=======
+}
+
+.derecha{
+    float : right;
+}
+.centro{
+    margin: auto;
+}
+.izquierda{
+    float: left;
+}
+
+p {
+    font-family: "Source Sans Pro",sans-serif;
+}
+
+body {
+    font-family: "Source Sans Pro",sans-serif;
+>>>>>>> origin/master
 }

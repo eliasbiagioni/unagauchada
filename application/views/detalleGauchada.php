@@ -13,7 +13,11 @@
                 Detalle de gauchada
         </div>
         <ul id="button">
+<<<<<<< HEAD
             <?php if(($this->session->userdata('login') == TRUE) && ($cantDias >0) && ($this->session->userdata('id') != $gauchada->id_usuario_dueño)) { ?>
+=======
+            <?php if(($this->session->userdata('login') == TRUE) && ($cantDias > 0) && ($this->session->userdata('id') != ($gauchada->id_usuario_dueño))){ ?>
+>>>>>>> origin/master
                 <li><a href="#">Postularse como candidato</a></li>
                 <li><a href="<?= base_url() ?>publicar_gauchada/volverAInicio">Volver a la pagina de inicio</a></li>
             <?php }else if($this->session->userdata('login') == TRUE) { ?>
@@ -36,7 +40,17 @@
         <h1 class="titulo letra"><?= $gauchada->titulo_favor ?></h1>
         <h3 class="titulo letra">Descripcion: </h3>
         <div class="descripcion"><p class="letra"><?= $gauchada->contenido_favor ?></p></div><hr>
+<<<<<<< HEAD
         <div class="localidad"><p class="letra">Dueño: <?= $gauchada->nombre_usuario." ".$gauchada->apellido_usuario ?></p></div><hr>
+=======
+        <?php if ($this->session->userdata('login') == TRUE) { ?>
+        <div class="localidad"><p class="letra">Dueño: <a href="<?= 'verPerfil?id='.$gauchada->id_usuario_dueño?>"> <?= $gauchada->nombre_usuario." ".$gauchada->apellido_usuario ?> </a></p></div><hr>
+        <?php } else { ?>
+            <div class="localidad"><p class="letra">Dueño: <?= $gauchada->nombre_usuario." ".$gauchada->apellido_usuario ?> </p></div><hr>
+        <?php
+        }
+        ?>
+>>>>>>> origin/master
         <div class="localidad"><p class="letra">Localidad: <?= $gauchada->nombre_localidad ?></p></div><hr>
         <div class="localidad"><p class="letra">Categoría: <?= $gauchada->nombre_categorias ?></p></div><hr>
         <div class="localidad"><p class="letra"><?= $mensaje ?></h3></div><hr>

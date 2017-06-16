@@ -25,7 +25,7 @@ class Usuario_model extends CI_Model{
     }
     
     function obtenerDatosSesion($email = ''){
-        $consulta = $this->db->query("SELECT id_usuario,mail_usuario,contraseña_usuario,nombre_usuario,apellido_usuario,es_administrador,creditos_usuario FROM usuarios_registrados WHERE mail_usuario = '".$email ."'");
+        $consulta = $this->db->query("SELECT * FROM usuarios_registrados WHERE mail_usuario = '".$email ."'");
         if($consulta->num_rows() > 0){
             return $consulta->row();
         }else{
@@ -39,5 +39,16 @@ class Usuario_model extends CI_Model{
     
     function actualizarCreditos($parametros){
         $this->db->query("UPDATE usuarios_registrados SET creditos_usuario = '".$parametros['creditos']."' WHERE id_usuario = '".$parametros['id']."'");
+    }
+
+    function actualizarPerfil($parametros){
+        if ($parametros['imagen'] != NULL) {
+            $sql = "UPDATE usuarios_registrados SET nombre_usuario='$parametros[nombre]',apellido_usuario='$parametros[apellido]', fecha_nacimiento='$parametros[fecha_nacimiento]',foto_usuario='$parametros[imagen]', extension_foto='$parametros[extension]',telefono_usuario='$parametros[telefono]' WHERE id_usuario=$parametros[id]";
+        }
+        else {
+           $sql = "UPDATE usuarios_registrados SET nombre_usuario='$parametros[nombre]',apellido_usuario='$parametros[apellido]', fecha_nacimiento='$parametros[fecha_nacimiento]', telefono_usuario='$parametros[telefono]' WHERE id_usuario=$parametros[id]";
+
+        }
+        $this->db->query($sql);
     }
 }

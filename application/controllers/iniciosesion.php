@@ -64,6 +64,8 @@ class Iniciosesion extends CI_Controller {
                     'apellido' => $resultado->apellido_usuario,
                     'es_administrador' => $resultado->es_administrador,
                     'creditos_usuario' => $resultado->creditos_usuario,
+                    'nacimiento' => $resultado->fecha_nacimiento,
+                    'puntos' => $resultado->puntos_usuario,
                     'login' => TRUE,
                 );
                 $this->session->set_userdata($data);

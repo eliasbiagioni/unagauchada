@@ -12,7 +12,10 @@
 }
 .titulo{
     text-align: center;
+<<<<<<< HEAD
     word-wrap: break-word;
+=======
+>>>>>>> origin/master
 }
 .descripcion{
     margin: auto;
@@ -29,5 +32,15 @@ hr{
     color: #ff955c;
 }
 .letra{
+<<<<<<< HEAD
     font-family: sans-serif;
 }
+=======
+    font-family: "Source Sans Pro",sans-serif;
+}
+
+body {
+    font-family: "Source Sans Pro",sans-serif;
+}
+
+>>>>>>> origin/master

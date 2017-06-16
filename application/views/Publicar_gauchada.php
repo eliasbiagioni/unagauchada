@@ -17,8 +17,9 @@
             </ul>
     </div>
     <h1 class="letra">Nueva gauchada</h1><br>
-    <?= 'Creditos: '.$creditos ?>
+    
     <div  class="contenedorRegistroGauchada letra">
+        <?= 'Créditos disponibles: '.$creditos .'<br><br>'?>
         <?= form_open_multipart("Publicar_gauchada/validar_datos")?>
         <div>
             <div><?= form_label('<p>Título de la Gauchada: </p>','titulo');?></div>
