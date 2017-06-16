@@ -34,20 +34,11 @@
                     $extension = $gauchada->extension_imagen;
                     $source_imagen = "data: $extension; base64, $encode";
                 } ?>
-<<<<<<< HEAD
                 <div class="imagenGauchada izquierda"><img src="<?= $source_imagen ?>" width="190px" height="130px" alt=""/></div>
                 <div class="nombreGauchada derecha"><a href="<?= base_url().'verGauchadaCompleta?num='.$gauchada->id_favor ?>"><?= $gauchada->titulo_favor?></a></div>
                 <div class="nombreGauchada derecha">Dueño: <?= $gauchada->nombre_usuario." ".$gauchada->apellido_usuario?></div>
                 <div class="nombreGauchada derecha">Localidad: <?= $gauchada->nombre_localidad ?></div>
                 <div class="nombreGauchada derecha">Categoría: <?= $gauchada->nombre_categorias ?></div>
-=======
-                <a href="<?= base_url().'verGauchadaCompleta?num='.$gauchada->id_favor ?>">
-                <div class="imagenGauchada izquierda"><img src="<?= $source_imagen ?>" width="190px" height="130px" alt=""/></div>
-                <div class="nombreGauchada derecha"><p> <?= $gauchada->titulo_favor?> </p></a></div>
-                <div class="nombreGauchada derecha">Dueño: <?= $gauchada->nombre_usuario." ".$gauchada->apellido_usuario?></div>
-                <div class="nombreGauchada derecha"><?= $gauchada->nombre_localidad ?></div>
-                <div class="nombreGauchada derecha"><?= $gauchada->nombre_categorias ?></div>
->>>>>>> origin/master
             </div>
     </div>
     <br>
