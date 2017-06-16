@@ -8,6 +8,7 @@ class Publicar_gauchada extends CI_Controller {
         $this->load->helper('date');
         $this->load->model('Publicar_gauchada_model');
         $this->load->model('usuario_model');
+        $this->load->model('buscarGauchada');
         $this->load->database();
         $this->validaciones();
     }
@@ -62,6 +63,7 @@ class Publicar_gauchada extends CI_Controller {
         $this->form_validation->set_message('max_length', 'Descripcion demasiada larga');
         $this->form_validation->set_message('check_default', 'Campo obligatorio');
         $this->form_validation->set_message('comprobarArchivoIngresado', '%s no válida');
+        $this->form_validation->set_message('comprobarCantDias', 'Debe ingresar una cantidad de dias mayor a 0');
         }
         
         public function validar_datos(){
@@ -69,7 +71,7 @@ class Publicar_gauchada extends CI_Controller {
         $this->form_validation->set_rules('descripcion', 'Descripcion', 'required|max_length[600]');
         $this->form_validation->set_rules('ciudades', 'Localidad', 'required|callback_check_default');
         $this->form_validation->set_rules('categorias', 'categorias', 'required|callback_check_default');
-        $this->form_validation->set_rules('cantDias', 'cantDias', 'required');
+        $this->form_validation->set_rules('cantDias', 'cantDias', 'required|callback_comprobarCantDias');
         $this->form_validation->set_rules('pic', 'Imagen', 'callback_comprobarArchivoIngresado');
         if($this->form_validation->run() == FALSE){
             $this->index();
@@ -127,12 +129,14 @@ class Publicar_gauchada extends CI_Controller {
             $this -> Publicar_gauchada_model -> almacenar_gauchada($data);
             $creditos = $this->session->userdata('creditos_usuario');
             $creditos--;
-            $parametros = array(
+            $parametrosModelo = array(
               'id' => $this->session->userdata('id'),
               'creditos' => $creditos,
             );
-            $this->usuario_model->actualizarCreditos($parametros);
-            $parameter['mensaje'] = 'Gauchada publicada. Creditos ahora: '.$creditos;
+            $this->session->set_userdata('creditos_usuario',$creditos);
+            $this->usuario_model->actualizarCreditos($parametrosModelo);
+            $parameter['mensaje'] = 'Gauchada publicada exitosamente.';
+            $parameter['creditos'] = $creditos;
             $this->load->view('mensajes',$parameter);
         }
         
@@ -162,9 +166,18 @@ class Publicar_gauchada extends CI_Controller {
             'nombre' => $this->session->userdata('nombre'),
             'apellido' => $this->session->userdata('apellido'),
             'es_administrador' => $this->session->userdata('es_administrador'),
+            'creditos_usuario' => $this->session->userdata('creditos_usuario'),
             'login' => TRUE,
          );
          $this->session->set_userdata($data);
-                $this->load->view('sesionIniciada');
+         $parameter['gauchadas'] = $this->Publicar_gauchada_model->obtenerGauchadas();
+         $this->load->view('sesionIniciada',$parameter);
      }
+     function comprobarCantDias(){
+         return ($this->input->post('cantDias') > 0);
+     }
+     public function busqueda(){
+        $busqueda = $this->input->post('buscar');
+        $this-> buscarGauchada -> buscar($busqueda);
+    }
 }

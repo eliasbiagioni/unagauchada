@@ -6,6 +6,7 @@ class Iniciosesion extends CI_Controller {
         parent::__construct();
         $this->load->library('form_validation');
         $this->load->model('usuario_model');
+        $this->load->model('Publicar_gauchada_model');
         $this->load->library('javascript');
         $this->validaciones();
     }
@@ -48,8 +49,9 @@ class Iniciosesion extends CI_Controller {
             $this->iniciarsesion();
         }
     }
-    
+ 
     function iniciarsesion(){
+        $parameter['mensaje'] = 'No existe usuario';
         $email = $this->input->post('mail_usuario');
         $contra = $this->input->post('contrasenia');
         $resultado = $this->usuario_model->obtenerDatosSesion($email);
@@ -62,16 +64,19 @@ class Iniciosesion extends CI_Controller {
                     'apellido' => $resultado->apellido_usuario,
                     'es_administrador' => $resultado->es_administrador,
                     'creditos_usuario' => $resultado->creditos_usuario,
+                    'nacimiento' => $resultado->fecha_nacimiento,
+                    'puntos' => $resultado->puntos_usuario,
                     'login' => TRUE,
                 );
                 $this->session->set_userdata($data);
-                $this->load->view('sesionIniciada');
+                $parameter['gauchadas'] = $this->Publicar_gauchada_model->obtenerGauchadas();
+                $this->load->view('sesionIniciada',$parameter);
             }
             else{
-                echo "Contraseña mal ingresada";
+                $this->load->view('mensajes',$parameter);
             }
         }else{
-            echo "No existe usuario";
+            $this->load->view('mensajes',$parameter);
         }
     }
     
@@ -89,8 +94,8 @@ class Iniciosesion extends CI_Controller {
         if($cantCreditos > 0){
             header('Location: '.base_url().'publicar_gauchada');
         }else{
-            $mensaje = 'No posee la cantidad de creditos suficiente para publicar una gauchada';
-            $this->load->view('mensajes',$mensaje);
+            $parametro['mensaje'] = 'No posee la cantidad de creditos suficiente para publicar una gauchada';
+            $this->load->view('mensajes',$parametro);
         } 
     }
 }

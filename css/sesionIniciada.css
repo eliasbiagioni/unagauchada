@@ -28,6 +28,16 @@ ul{
     background-color: #ff955c;
     color: #fff;
 }
+#button li form {
+    font-family: sans-serif;
+    font-size:16px;
+    text-decoration: none;
+    float:left;
+    padding: 10px;
+    background-color: #ff955c;
+    color: #fff;
+    height: 10px;
+}
 #button li a:hover {
     background-color: orange;
     margin-top:-2px;
@@ -45,41 +55,52 @@ ul{
     background-color: #ff955c;
 }
 
-.imagen{
-    width: 298px;
+.imagenGauchada{
+    width: 200px;
     font-family: sans-serif;
-    height: 90px;
+    height: 130px;
     margin: auto;
     text-align: center;
     color: #fff;
+    background-color: whitesmoke;
+    
 }
-.nombre{
-    width: 298px;
+.nombreGauchada{
+    width: 390px;
     font-family: sans-serif;
-    height: 20px;
+    height: 35px;
     margin: auto;
     text-align: center;
     color: #fff;
+    
 }
-.nombre a{
+.nombreGauchada a{
     text-decoration: none;
     color: #fff;
 }
 
-.izquierda{
-    float: left;
-}
-.centro{
-    margin-left: 45px;
-    display: inline-block;
+.contenedorGauchadas{
+    background-color: #ff955c; 
+    margin: auto;
+    width: 600px;
+    height: 130px;
+    border: 1px solid black;
 }
 
 .derecha{
-    float: right;
+    float : right;
+}
+.centro{
+    margin: auto;
+}
+.izquierda{
+    float: left;
 }
 
-.contenedorGauchadas{
-    margin: auto;
-    width: 1000px;
-    height: 158px;
+p {
+    font-family: "Source Sans Pro",sans-serif;
+}
+
+body {
+    font-family: "Source Sans Pro",sans-serif;
 }

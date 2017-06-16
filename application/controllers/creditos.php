@@ -63,12 +63,14 @@ class Creditos extends CI_Controller {
 	}
 
 	public function mandarDatos(){
-
+                $creditos = $this->input->post('cantidad');
 		$data = array(
-            'cantidadCreditos' => $this->input->post('cantidad'),
-            'id_usuario' => 25
-        );
-
-		$this -> mandarDatos -> almacenar_creditos($data);
+                    'cantidadCreditos' => $creditos,
+                    'id' => $this->session->userdata('id'),
+                    );
+                $nuevosCreditos = $this -> mandarDatos -> almacenar_creditos($data);
+		$this->session->set_userdata('creditos_usuario',$nuevosCreditos); 
+                $parametro['mensaje'] = 'La compra se ha realizado exitosamente';
+                $this->load->view('mensajes',$parametro);
 	}
 }
