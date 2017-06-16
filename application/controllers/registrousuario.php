@@ -16,8 +16,8 @@ class Registrousuario extends CI_Controller {
         $this->form_validation->set_message('check_default', 'Campo obligatorio');
         $this->form_validation->set_message('valid_date', '%s no válida');
         $this->form_validation->set_message('matches', 'Contraseñas no coinciden');
-        $this->form_validation->set_message('soloLetras', '%s no válido');
-        $this->form_validation->set_message('soloNumeros', '%s no válido');
+        $this->form_validation->set_message('soloLetras', '%s no válido, solo letras');
+        $this->form_validation->set_message('soloNumeros', '%s no válido, solo números');
         $this->form_validation->set_message('valid_email', '%s no válido');
         $this->form_validation->set_message('comprobarArchivoIngresado', '%s no válida');
         $this->form_validation->set_message('is_unique', '%s ya existe'); 

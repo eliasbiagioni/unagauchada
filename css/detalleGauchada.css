@@ -1,0 +1,33 @@
+.contenedorDetalleGauchada{
+    margin: auto;
+    border: 3px solid #ff955c;
+    width: 600px;
+    padding: 5px;
+}
+.imagen{
+    margin: auto;
+    margin-top: 0px;
+    width: 200px;
+    padding: 0px;
+}
+.titulo{
+    text-align: center;
+    word-wrap: break-word;
+}
+.descripcion{
+    margin: auto;
+    width: 600px;
+    padding: 0px;
+    word-wrap: break-word;
+}
+.localidad{
+    width: 600px;
+    padding: 0px;
+    text-align: left;
+}
+hr{
+    color: #ff955c;
+}
+.letra{
+    font-family: sans-serif;
+}
