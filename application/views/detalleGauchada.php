@@ -12,6 +12,7 @@
         <div class="bienvenido">
                 Detalle de gauchada
         </div>
+        <ul id="button">
             <?php if(($this->session->userdata('login') == TRUE) && ($cantDias > 0) && ($this->session->userdata('id') != ($gauchada->id_usuario_dueño))){ ?>
                 <li><a href="#">Postularse como candidato</a></li>
                 <li><a href="<?= base_url() ?>publicar_gauchada/volverAInicio">Volver a la pagina de inicio</a></li>
