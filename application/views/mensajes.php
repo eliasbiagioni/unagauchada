@@ -33,11 +33,10 @@
                         <li><a href="<?php echo base_url()?>registrousuario">Registrarse</a></li>
                         <li><a href="<?php echo base_url()?>iniciosesion">Iniciar sesión</a></li>
                         <li><a href="<?php echo base_url()?>inicio">Volver al inicio</a></li>
-                        <?php break;
-                case "Se ha actualizado tu Perfil":  ?>
+                        <?php break;    
+                default:  ?>
                         <li><a href="<?= base_url() ?>publicar_gauchada/volverAInicio">Volver a la pagina de inicio</a></li>
-                        <?php break;
-                default:  } ?>
+                        <?php break; } ?>
         </ul>
     </div>
         <hr class="longitud">

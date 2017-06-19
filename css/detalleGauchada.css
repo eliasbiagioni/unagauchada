@@ -36,3 +36,27 @@ hr{
 body {
     font-family: "Source Sans Pro",sans-serif;
 }
+
+.desplegable{
+    font-family: "Source Sans Pro",sans-serif;
+    font-size: 18px;
+    background-color: #ff955c;
+    text-decoration: none;
+    border-color: #ff955c;
+    width: 200px;
+    padding: 7px;
+    cursor: pointer;
+}
+
+.oculto{
+    display: none;
+}
+
+.mostrar{
+    display: block;
+}
+
+a{
+    text-decoration: none;
+    color:blue;
+}
