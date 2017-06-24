@@ -41,7 +41,17 @@
          if (isset($noresults)) {
             echo "$noresults";
         }
-        else {  foreach($gauchadas as $gauchada){ ?>
+        else {  foreach($gauchadas as $gauchada){ 
+
+            $fecha2 = date('Y-m-d');
+            $inicio = strtotime($gauchada->fecha_expiracion);
+            $fin = strtotime($fecha2);
+            $dif = $inicio - $fin;
+            $diasFalt = (( ( $dif / 60 ) / 60 ) / 24);
+            $totDias = ceil($diasFalt);
+            if (($totDias > 0) or (isset($misGauchadas))) {
+
+            ?>
             <div class="contenedorGauchadas">
             <div>
                 <?php if($gauchada->contenido_imagen == NULL){
@@ -59,6 +69,6 @@
             </div>
     </div>
     <br>
-        <?php }}?>
+        <?php }}}?>
 </body>
 </html>

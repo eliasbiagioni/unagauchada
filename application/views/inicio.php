@@ -24,25 +24,41 @@
          if (isset($noresults)) {
             echo "$noresults";
         }
-        else {  foreach($gauchadas as $gauchada){ ?>
-            <div class="contenedorGauchadas">
-            <div>
-                <?php if($gauchada->contenido_imagen == NULL){
-                    $source_imagen = "http://localhost/unagauchada/images/imagen_por_defecto.png";
-                }else {
-                    $encode = base64_encode($gauchada->contenido_imagen);
-                    $extension = $gauchada->extension_imagen;
-                    $source_imagen = "data: $extension; base64, $encode";
-                } ?>
-                <div class="imagenGauchada izquierda"><img src="<?= $source_imagen ?>" width="190px" height="130px" alt=""/></div>
-                <div class="nombreGauchada derecha"><a href="<?= base_url().'verGauchadaCompleta?num='.$gauchada->id_favor ?>"><?= $gauchada->titulo_favor?></a></div>
+        else {  foreach($gauchadas as $gauchada){ 
 
-                <div class="nombreGauchada derecha">Dueño: <?= $gauchada->nombre_usuario." ".$gauchada->apellido_usuario?></div>
-                <div class="nombreGauchada derecha">Localidad: <?= $gauchada->nombre_localidad ?></div>
-                <div class="nombreGauchada derecha">Categoría: <?= $gauchada->nombre_categorias ?></div>
-            </div>
+            $fecha2 = date('Y-m-d');
+            $inicio = strtotime($gauchada->fecha_expiracion);
+            $fin = strtotime($fecha2);
+            $dif = $inicio - $fin;
+            $diasFalt = (( ( $dif / 60 ) / 60 ) / 24);
+            $totDias = ceil($diasFalt);
+            if($totDias > 0){
+
+            ?>
+                <div class="contenedorGauchadas">
+                <div>
+                    <?php if($gauchada->contenido_imagen == NULL){
+                        $source_imagen = "http://localhost/unagauchada/images/imagen_por_defecto.png";
+                    }else {
+                        $encode = base64_encode($gauchada->contenido_imagen);
+                        $extension = $gauchada->extension_imagen;
+                        $source_imagen = "data: $extension; base64, $encode";
+                    } ?>
+                    <div class="imagenGauchada izquierda"><img src="<?= $source_imagen ?>" width="190px" height="130px" alt=""/></div>
+                    <div class="nombreGauchada derecha"><a href="<?= base_url().'verGauchadaCompleta?num='.$gauchada->id_favor ?>"><?= $gauchada->titulo_favor?></a></div>
+
+                    <div class="nombreGauchada derecha">Dueño: <?= $gauchada->nombre_usuario." ".$gauchada->apellido_usuario?></div>
+                    <div class="nombreGauchada derecha">Localidad: <?= $gauchada->nombre_localidad ?></div>
+                    <div class="nombreGauchada derecha">Categoría: <?= $gauchada->nombre_categorias ?></div>
+                </div>
     </div>
     <br>
-        <?php }}?>
+        <?php 
+            } #Del if totalDias
+        } #Del foreach
+        } #Del else
+
+
+        ?>
 </body>
 </html>
