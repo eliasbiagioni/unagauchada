@@ -22,7 +22,7 @@ class Postulacion_model extends CI_Model {
         }
         
     function postulantes($id_favor){
-        $contulta = $this->db->query("SELECT ur.id_usuario,ur.nombre_usuario,ur.apellido_usuario,ur.puntos_usuario,sp.comentario,sp.respuesta,sp.id_postulacion,sp.estado FROM `se_postula` sp INNER JOIN `usuarios_registrados` ur ON (sp.id_usuario=ur.id_usuario) WHERE id_favor='".$id_favor."'");
+        $contulta = $this->db->query("SELECT ur.telefono_usuario,ur.mail_usuario,ur.id_usuario,ur.nombre_usuario,ur.apellido_usuario,ur.puntos_usuario,sp.comentario,sp.respuesta,sp.id_postulacion,sp.estado FROM `se_postula` sp INNER JOIN `usuarios_registrados` ur ON (sp.id_usuario=ur.id_usuario) WHERE id_favor='".$id_favor."' ORDER BY ur.puntos_usuario DESC");
         return $contulta;
     }
     

@@ -92,7 +92,7 @@ class Iniciosesion extends CI_Controller {
     function validarPublicacionGauchada(){
         $cantCreditos = $this->session->userdata('creditos_usuario');
         if($cantCreditos > 0){
-            header('Location: '.base_url().'publicar_gauchada');
+            header('Location: '.base_url().'publicar_gauchada?tipo=0');
         }else{
             $parametro['mensaje'] = 'No posee la cantidad de creditos suficiente para publicar una gauchada';
             $this->load->view('mensajes',$parametro);

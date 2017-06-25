@@ -4,9 +4,20 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/unagauchada/application/controllers/respuestaComentario.php</file>
+            <file>file:/C:/xampp/htdocs/unagauchada/application/views/sesionIniciada.php</file>
             <file>file:/C:/xampp/htdocs/unagauchada/application/controllers/verGauchadaCompleta.php</file>
             <file>file:/C:/xampp/htdocs/unagauchada/application/controllers/postulacion.php</file>
+            <file>file:/C:/xampp/htdocs/unagauchada/application/models/calificacion_model.php</file>
+            <file>file:/C:/xampp/htdocs/unagauchada/application/controllers/calificaciones.php</file>
+            <file>file:/C:/xampp/htdocs/unagauchada/application/models/Publicar_gauchada_model.php</file>
+            <file>file:/C:/xampp/htdocs/unagauchada/application/views/usuariosSinCalificar.php</file>
+            <file>file:/C:/xampp/htdocs/unagauchada/application/models/usuario_model.php</file>
+            <file>file:/C:/xampp/htdocs/unagauchada/application/views/inicio.php</file>
+            <file>file:/C:/xampp/htdocs/unagauchada/application/controllers/verPerfil.php</file>
+            <file>file:/C:/xampp/htdocs/unagauchada/application/views/responderComentario.php</file>
+            <file>file:/C:/xampp/htdocs/unagauchada/application/views/calificar.php</file>
             <file>file:/C:/xampp/htdocs/unagauchada/application/views/detalleGauchada.php</file>
+            <file>file:/C:/xampp/htdocs/unagauchada/application/controllers/registrousuario.php</file>
             <file>file:/C:/xampp/htdocs/unagauchada/application/models/postulacion_model.php</file>
         </group>
     </open-files>

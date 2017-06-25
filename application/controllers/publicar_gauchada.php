@@ -14,6 +14,16 @@ class Publicar_gauchada extends CI_Controller {
     }
 
 	public function index(){
+            $tipo = $_GET['tipo'];
+            if ($tipo == 0){
+            $idLogueado = $this->session->userdata('id');
+            $consultaUsuariosSinCalificar = $this->usuario_model->usuariosSinCalificar($idLogueado);
+        if($consultaUsuariosSinCalificar->num_rows() > 0){
+            echo "<script>
+            alert('Necesitas calificar a los usuarios pendientes para poder publicar una nueva gauchada.');
+            window.location.href='" . base_url() . "verPerfil/usuariosSinCalificar';
+            </script>";
+        }else{
                 $parameter['creditos'] = $this->session->userdata('creditos_usuario');
 		$parameter['title'] = 'Una Gauchada';
                 $parameter['mensaje'] = 'Publicar gauchada';
@@ -21,11 +31,23 @@ class Publicar_gauchada extends CI_Controller {
 	      'src' => 'images/unagauchada.png',
 	       'class' => 'size_image',
 	     );
+                $parameter['mensaje'] = 'Nueva';
 		$parameter['form'] = $this->crearFormulario();
 		$parameter['localidades'] = $this->db->get('localidades')->result();
 		$parameter['categorias'] = $this->db->get('categorias')->result();
 		$this->load->view('Publicar_gauchada',$parameter);
-	}
+            }}
+            else{
+                $parameter['idfavor'] = $_GET['idfavor'];
+                $parameter['diasRestantes'] = $_GET['diasRestantes'];
+                $parameter['localidades'] = $this->db->get('localidades')->result();
+		$parameter['categorias'] = $this->db->get('categorias')->result();
+                $parameter['form'] = $this->crearFormulario();
+                $parameter['mensaje'] = 'Editar';
+                $parameter['gauchada'] = $this->Publicar_gauchada_model->obtenerGauchadaCompleta($parameter['idfavor']);
+                $this->load->view('Publicar_gauchada',$parameter);
+            }
+        }
 
         public function obtener_imagen(){
             if($_FILES['pic']['name']){
@@ -74,9 +96,17 @@ class Publicar_gauchada extends CI_Controller {
         $this->form_validation->set_rules('cantDias', 'cantDias', 'required|callback_comprobarCantDias');
         $this->form_validation->set_rules('pic', 'Imagen', 'callback_comprobarArchivoIngresado');
         if($this->form_validation->run() == FALSE){
-            $this->index();
+            if($_GET['tipo'] == 0){
+                $this->index().'?tipo=0';
+            }else{
+                $this->index().'?tipo=1&diasRestantes='.$_GET['diasRestantes'].'&idfavor='.$_GET['idfavor'];
+            }
         }else{
-            $this->mandarDatos();
+            if($_GET['tipo'] == 0){
+                $this->mandarDatos().'?tipo=0';
+            }else{
+                $this->mandarDatos().'?tipo=1&idfavor='.$_GET['idfavor'];
+            }  
         }
     }
         
@@ -126,17 +156,24 @@ class Publicar_gauchada extends CI_Controller {
                 'extension_imagen' => $url_imagen['extension'],
                 'usuario' => $this->session->userdata('id'),
         );
-            $this -> Publicar_gauchada_model -> almacenar_gauchada($data);
-            $creditos = $this->session->userdata('creditos_usuario');
-            $creditos--;
-            $parametrosModelo = array(
-              'id' => $this->session->userdata('id'),
-              'creditos' => $creditos,
-            );
-            $this->session->set_userdata('creditos_usuario',$creditos);
-            $this->usuario_model->actualizarCreditos($parametrosModelo);
-            $parameter['mensaje'] = 'Gauchada publicada exitosamente.';
-            $parameter['creditos'] = $creditos;
+            $tipo = $_GET['tipo'];
+            if($tipo == 0){
+                $this -> Publicar_gauchada_model -> almacenar_gauchada($data);
+                $creditos = $this->session->userdata('creditos_usuario');
+                $creditos--;
+                $parametrosModelo = array(
+                    'id' => $this->session->userdata('id'),
+                    'creditos' => $creditos,
+                    );
+                $parameter['creditos'] = $creditos;
+                $this->session->set_userdata('creditos_usuario',$creditos);
+                $this->usuario_model->actualizarCreditos($parametrosModelo);
+                $parameter['mensaje'] = 'Gauchada publicada exitosamente.';
+            }else{
+                $data['idfavor'] = $_GET['idfavor'];
+                $this -> Publicar_gauchada_model ->actualizar_gauchada($data);
+                $parameter['mensaje'] = 'Gauchada modificada exitosamente.';
+            }
             $this->load->view('mensajes',$parameter);
         }
         
@@ -179,5 +216,10 @@ class Publicar_gauchada extends CI_Controller {
      public function busqueda(){
         $busqueda = $this->input->post('buscar');
         $this-> buscarGauchada -> buscar($busqueda);
+    }
+    
+    function eliminarGauchada(){
+        $idfavor = $_GET['idfavor'];
+        $consulta = $this->Publicar_gauchada_model->existeGauchadaSinCalificar($idfavor);
     }
 }

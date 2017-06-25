@@ -13,13 +13,14 @@
                 Bienvenido al sitio
         </div>
         <ul id="button">
+            <li><a href="<?= base_url().'verGauchadaCompleta?num='.$idfavor ?>">Volver a la gauchada</a></li>
             <li><a href="<?= base_url() ?>publicar_gauchada/volverAInicio">Volver a la pagina de inicio</a></li>
         </ul>
     </div>
     <hr class="longitud">
     <div class="contenedorRegistroGauchada letra" >
         <?php 
-            echo form_open('respuestaComentario/guardarRespuesta?idpostulacion='.$idpostulacion.'&comentario='.$comentario);
+            echo form_open('respuestaComentario/guardarRespuesta?idpostulacion='.$idpostulacion.'&comentario='.$comentario.'&idfavor='.$idfavor);
             echo form_textarea($area_respuesta);
             echo '<span>'.form_error('respuesta').'</span>';
             echo br();

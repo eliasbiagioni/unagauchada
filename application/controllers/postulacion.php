@@ -63,6 +63,8 @@ class Postulacion extends CI_Controller {
             'id_postulante' => $_GET['idpostulante'],
         );
         $this->postulacion_model->seleccionarCandidato($datos);
+        $parameter['mensaje'] = 'Se ha seleccionado un candidato exitosamente';
+        $this->load->view('mensajes',$parameter);
     }
     
     function eliminarSeleccion(){
@@ -70,5 +72,7 @@ class Postulacion extends CI_Controller {
             'id_favor' => $_GET['idfavor'],
         );
         $this->postulacion_model->eliminarCandidatura($datos);
+        $parameter['mensaje'] = 'Se ha eliminado la selección de candidato';
+        $this->load->view('mensajes',$parameter);
     }
 }        

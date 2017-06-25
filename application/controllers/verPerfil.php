@@ -82,5 +82,17 @@ class verPerfil extends CI_Controller {
                 $propiedades_imagen['extension'] = NULL;}
             return $propiedades_imagen;
     }
+    
+    function usuariosSinCalificar(){
+        $idLogueado = $this->session->userdata('id');
+        $lista_usuarios = $this->usuario_model->usuariosSinCalificar($idLogueado);
+        if($lista_usuarios->num_rows() == 0){
+            $parameter['mensaje'] = 'No existen usuarios sin calificar';
+        }else {
+            $parameter['mensaje'] = 'Lista de usuarios sin calificar';
+        }
+        $parameter['lista_usuarios'] = $lista_usuarios->result();
+        $this->load->view('usuariosSinCalificar',$parameter);
+    }
 
 }

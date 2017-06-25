@@ -6,6 +6,7 @@ class VerGauchadaCompleta extends CI_Controller {
         parent::__construct();
         $this->load->model('Publicar_gauchada_model');
         $this->load->model('postulacion_model');
+        $this->load->model('calificacion_model');
         }
 
 
@@ -37,6 +38,7 @@ class VerGauchadaCompleta extends CI_Controller {
         $dif = $inicio - $fin;
         $diasFalt = (( ( $dif / 60 ) / 60 ) / 24);
         $totDias = ceil($diasFalt);
+        $parameter['totDias'] = $totDias;
         if($totDias > 0){
             $parameter['mensaje'] = 'Dias restantes: '.$totDias;
         }else{
@@ -44,7 +46,29 @@ class VerGauchadaCompleta extends CI_Controller {
         }
         $parameter['cantDias'] = $totDias;
         $parameter['id_favor'] = $id_favor;
+        $parametros_calificacion = array(
+            'idFavor' => $id_favor,
+            'idPostulante' => $this->calificacion_model->existeAceptado($id_favor),
+        );
+        if($parametros_calificacion['idPostulante'] != 0){
+            $consulta_calificacion = $this->calificacion_model->existeCalificacion($parametros_calificacion);
+            if($consulta_calificacion > 0){
+                $parameter['existeAceptado'] = TRUE;
+                $parameter['existeCalificacion'] = TRUE;
+            }else{
+                $parameter['existeAceptado'] = TRUE;
+                $parameter['existeCalificacion'] = FALSE;}
+        }else{
+            $parameter['existeAceptado'] = FALSE;
+            $parameter['existeCalificacion'] = FALSE;
+        }
         $this->load->view('detalleGauchada',$parameter);
     }
     
+    function editarGauchada(){
+        $idfavor = $_GET['idfavor'];
+        $parameter['gauchada'] = $this->Publicar_gauchada_model->obtenerGauchadaCompleta($idfavor);
+        $parameter['idfavor'] = $idfavor;
+        $this->load->view('editarGauchada',$parameter);
+    }
 }

@@ -14,12 +14,15 @@
                 Detalle de gauchada
         </div>
         <ul id="button">
-            <?php if(($this->session->userdata('login') == TRUE) && ($cantDias > 0) && ($this->session->userdata('id') != ($gauchada->id_usuario_dueño))){ 
+            <?php if(($cant_postulantes == 0)&&($this->session->userdata('login') == TRUE) && ($cantDias > 0) && ($this->session->userdata('id') == ($gauchada->id_usuario_dueño))&&($mensaje != 'Expiró')){ ?>
+            <li><a href="<?= base_url().'publicar_gauchada?idfavor='.$idfavor.'&tipo=1'.'&diasRestantes='.$totDias ?>">Editar gauchada</a></li>
+            <?php }?>
+            <?php if(($this->session->userdata('login') == TRUE) && ($cantDias > 0) && ($this->session->userdata('id') != ($gauchada->id_usuario_dueño))&(!$existeCalificacion)&(!$existeAceptado)){ 
                 if($se_postulo > 0) { ?>
                     <li><a href="<?= base_url().'postulacion/cancelarCandidatura?idfavor='.$id_favor.'&idpostulante='.$this->session->userdata('id') ?>">Cancelar candidatura</a></li>
-                <?php } else { ?>    
+                <?php } else { if ((!$existeCalificacion)&&(!$existeAceptado)){?>    
                 <li><a href="<?= base_url().'postulacion/index?idfavor='.$id_favor.'&idpostulante='.$this->session->userdata('id') ?>">Postularse como candidato</a></li>
-                <?php } ?>
+                <?php } } ?>
                 <li><a href="<?= base_url() ?>publicar_gauchada/volverAInicio">Volver a la pagina de inicio</a></li>
             <?php }else if($this->session->userdata('login') == TRUE) { ?>
                 <li><a href="<?= base_url() ?>publicar_gauchada/volverAInicio">Volver a la pagina de inicio</a></li>
@@ -54,27 +57,32 @@
         <div class="localidad"><p class="letra">Cantidad de postulantes: <?= $cant_postulantes ?></p></div><hr>
         <div>
             <?php if(($this->session->userdata('login') == TRUE) && ($this->session->userdata('id') == ($gauchada->id_usuario_dueño))){ ?>
-            <button type="button" class="desplegable" onclick="mostrarOcultar('postulantes')">Lista de postulantes</button><br>
-            <div class="oculto" id="postulantes" ><br>
-            <?php if($cant_postulantes == 0){echo 'No hay postulantes';} else { foreach ($postulantes as $usuario) { ?>
+            <button type="button" class="desplegable" onclick="mostrarOcultar('postulantes')">Lista de postulantes</button>
+            <div class="oculto" id="postulantes" >
+            <?php if($cant_postulantes == 0){echo 'No hay postulantes';} else { foreach ($postulantes as $usuario) { if(($usuario->estado == 'Aceptado')||($usuario->estado == 'Pendiente')){ ?><hr>
                 <div><p class="letra">Usuario: <a href="<?= 'verPerfil?id='.$usuario->id_usuario?>"> <?= $usuario->nombre_usuario." ".$usuario->apellido_usuario ?></a></p></div>
                 <div><p class="letra">Logro: <?= $usuario->puntos_usuario." pts (Despúes debe ir la reputacion del usuario)"?></p></div>
                 <div><p class="letra">Comentario: <?= $usuario->comentario ?></p></div>
                 <div><p class="letra">Respuesta: <?php if($usuario->respuesta != NULL) {echo $usuario->respuesta;} else { echo "No hay respuesta"; } ?></p></div>
                 <div><p class="letra">Estado: <?= $usuario->estado ?></p></div>
-                <?php if($usuario->respuesta == NULL) { ?>
-                    <a href="<?= base_url().'respuestaComentario/index?idpostulacion='.$usuario->id_postulacion.'&comentario='.$usuario->comentario ?>">Responder comentario</a>
-                <?php } ?><br><br>
-                <?php if($mensaje != 'Expiró') { if($usuario->estado == 'Aceptado') { ?>
-                    <a href="<?= base_url().'postulacion/eliminarSeleccion?idfavor='.$idfavor ?>">Eliminar selección</a>
-                <?php } else { if($usuario->estado == 'Pendiente') { ?>
-                    <a href="<?= base_url().'postulacion/seleccionarPostulante?idfavor='.$idfavor.'&idpostulante='.$usuario->id_usuario ?>">Seleccionar postulante</a>
-                <?php } } } ?>
-                <hr>
-            <?php } } ?>
+                <?php if ($usuario->estado == 'Aceptado'){ ?>
+                    <div><p class="letra">Mail: <?= $usuario->mail_usuario?></p></div>
+                    <div><p class="letra">Teléfono: <?= $usuario->telefono_usuario ?></p></div>
+                    <?php if (!$existeCalificacion) { ?>
+                    <div><a href="<?= base_url().'calificaciones/index?idfavor='.$idfavor.'&idusuariocalificar='.$usuario->id_usuario ?>">Calificar usuario</a></div>
+                <?php } else { ?> 
+                        <div><p class="letra">Usuario calificado</p></div>
+                <?php } } ?>
+                <?php if(($usuario->respuesta == NULL)&($mensaje != 'Expiró')&(!$existeCalificacion)) { ?>
+                        <div><a href="<?= base_url().'respuestaComentario/index?idpostulacion='.$usuario->id_postulacion.'&idfavor='.$gauchada->id_favor.'&comentario='.$usuario->comentario ?>">Responder comentario</a></div>
+                <?php } ?>
+                    
+                <?php if($usuario->estado == 'Pendiente') { ?>
+                    <div><a href="<?= base_url().'postulacion/seleccionarPostulante?idfavor='.$idfavor.'&idpostulante='.$usuario->id_usuario ?>">Seleccionar postulante</a></div>
+                <?php } }  ?>
+            <?php  } } ?>
             </div>
-            <?php } ?>
-            <br>
+            <?php }?>
             <button type="button" class="desplegable" onclick="mostrarOcultar('preguntas')">Preguntas</button>
             <div id="preguntas"></div>
         </div>

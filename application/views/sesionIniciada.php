@@ -3,6 +3,7 @@
     <head>
         <link href="http://localhost/unagauchada/css/imagen_principal.css" rel="stylesheet" type="text/css" />
         <link href="http://localhost/unagauchada/css/sesionIniciada.css" rel="stylesheet" type="text/css" />
+        <link href="http://localhost/unagauchada/css/formulario_registro.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript" charset="utf-8" src="http://localhost/unagauchada/js/botonAtras.js"></script>
         <title>Una gauchada</title>
     </head>
@@ -18,6 +19,7 @@
         
             <ul id="button">
                 <?php if (isset($soloVolver)) { ?>
+                    <li><a href="<?= base_url().'verPerfil/usuariosSinCalificar' ?>">Usuarios sin calificar</a></li>
                     <li><a href="<?= base_url().'verPerfil?mail='.$this->session->userdata('email') ?>">Volver a tu Perfil</a></li>
                 <?php } else { ?>
                 <li>  <?= form_open_multipart("publicar_gauchada/busqueda")?><input type="search" name="buscar" placeholder="Título de la Gauchada" size="40">
@@ -25,7 +27,7 @@
                  </form> </li>
                 <?php if($this->session->userdata('es_administrador') == 1){ ?>
                     <li><a href="#' ?>">Administrar</a></li>
-                 <?php } ?>
+                 <?php } ?>    
                 <li><a href="<?= base_url().'verPerfil?mail='.$this->session->userdata('email') ?>">Ver perfil</a></li>
                 <li><a href="<?= base_url().'iniciosesion/validarPublicacionGauchada' ?>">Nueva gauchada</a></li>
                 <li><a href="<?= base_url().'creditos' ?>">Comprar créditos</a></li>
@@ -42,6 +44,7 @@
             echo "$noresults";
         }
         else {  foreach($gauchadas as $gauchada){ ?>
+    <div class='divprincipal'>
             <div class="contenedorGauchadas">
             <div>
                 <?php if($gauchada->contenido_imagen == NULL){
@@ -58,7 +61,11 @@
                 <div class="nombreGauchada derecha">Categoría: <?= $gauchada->nombre_categorias ?></div>
             </div>
     </div>
+    <?php if(isset($misGauchadas)){ ?>
+    <div class="centrado_algo"><a href="<?= base_url().'publicar_gauchada/eliminarGauchada?idfavor='.$gauchada->id_favor ?>" class="eliminar">Eliminar gauchada</a></div>
+    <?php }?>
     <br>
         <?php }}?>
+    </div>
 </body>
 </html>

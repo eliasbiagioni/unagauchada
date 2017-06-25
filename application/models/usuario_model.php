@@ -51,4 +51,20 @@ class Usuario_model extends CI_Model{
         }
         $this->db->query($sql);
     }
+    
+    function sumarPunto($idusuario){
+        $puntos = $this->db->query("SELECT puntos_usuario FROM usuarios_registrados WHERE id_usuario='".$idusuario."'")->result()[0]->puntos_usuario;
+        $puntos++;
+        $this->db->query("UPDATE usuarios_registrados SET puntos_usuario='".$puntos."'WHERE id_usuario='".$idusuario."'");
+    }
+    
+    function restarPuntos($idusuario){
+        $puntos = $this->db->query("SELECT puntos_usuario FROM usuarios_registrados WHERE id_usuario='".$idusuario."'")->result()[0]->puntos_usuario;
+        $puntos = ($puntos-2);
+        $this->db->query("UPDATE usuarios_registrados SET puntos_usuario='".$puntos."'WHERE id_usuario='".$idusuario."'");
+    }
+    function usuariosSinCalificar($idLogueado){
+        $consulta = $this->db->query("SELECT ur.nombre_usuario,ur.apellido_usuario,f.titulo_favor,f.id_favor,ur.id_usuario FROM `usuarios_registrados` ur INNER JOIN `se_postula` sp ON (ur.id_usuario=sp.id_usuario) INNER JOIN `favores` f ON (sp.id_favor=f.id_favor) WHERE sp.estado='Aceptado' AND f.id_usuario_dueño='".$idLogueado."' AND NOT EXISTS (SELECT * FROM calificaciones c WHERE c.id_favor=sp.id_favor)");
+        return $consulta;
+    }
 }

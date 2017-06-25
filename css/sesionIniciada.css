@@ -113,3 +113,14 @@ p {
 body {
     font-family: "Source Sans Pro",sans-serif;
 }
+
+.eliminar{
+    text-decoration: none;
+    text-align: center;
+    color: blue;
+}
+.divprincipal{
+    width: 650px;
+    padding:1px;
+    margin:auto;
+}

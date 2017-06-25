@@ -13,6 +13,7 @@ class RespuestaComentario extends CI_Controller {
         $parameters = array (
             'idpostulacion' => $_GET['idpostulacion'],
             'comentario' => $_GET['comentario'],
+            'idfavor' => $_GET['idfavor'],
             'area_respuesta' => array(
                 'name' => "respuesta",
                 'cols' => "60",
@@ -30,6 +31,7 @@ class RespuestaComentario extends CI_Controller {
         $this->form_validation->set_rules('respuesta', 'Respuesta', 'required');
         $idpostulacion = $_GET['idpostulacion'];
         $comentario= $_GET['comentario'];
+        $idfavor = $_GET['idfavor'];
         if($this->form_validation->run() == FALSE){
             $this->index();
         }else{
