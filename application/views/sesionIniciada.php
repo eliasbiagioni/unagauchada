@@ -16,8 +16,7 @@
         <div class="bienvenido">
                 Bienvenido/a, <?php echo $this->session->userdata('nombre').' '.$this->session->userdata('apellido')?>
         </div>
-        
-            <ul id="button">
+        <ul id="button">
                 <?php if (isset($soloVolver)) { ?>
                     <li><a href="<?= base_url().'verPerfil/usuariosSinCalificar' ?>">Usuarios sin calificar</a></li>
                     <li><a href="<?= base_url().'verPerfil?mail='.$this->session->userdata('email') ?>">Volver a tu Perfil</a></li>
@@ -33,20 +32,29 @@
                 <li><a href="<?= base_url().'creditos' ?>">Comprar créditos</a></li>
                 <li><a href="<?= base_url().'iniciosesion/cerrar_sesion' ?>">Cerrar sesión</a></li>
                 <?php } ?>
-            </ul>
+        </ul>
     </div>
     <hr class="longitud">
     <?php 
         if (isset($misGauchadas)){
             echo "<h1> $misGauchadas </h1>";
         }
-         if (isset($noresults)) {
+        if (isset($noresults)) {
             echo "$noresults";
-        }
-        else {  foreach($gauchadas as $gauchada){ ?>
-    <div class='divprincipal'>
+        } else {?>
+        <div class='divprincipal'>
+        <?php  foreach($gauchadas as $gauchada){ 
+
+            $fecha2 = date('Y-m-d');
+            $inicio = strtotime($gauchada->fecha_expiracion);
+            $fin = strtotime($fecha2);
+            $dif = $inicio - $fin;
+            $diasFalt = (( ( $dif / 60 ) / 60 ) / 24);
+            $totDias = ceil($diasFalt);
+            if (($totDias > 0) || (isset($misGauchadas))) {
+            ?>
             <div class="contenedorGauchadas">
-            <div>
+                <div>
                 <?php if($gauchada->contenido_imagen == NULL){
                     $source_imagen = "http://localhost/unagauchada/images/imagen_por_defecto.png";
                 }else {
@@ -59,13 +67,12 @@
                 <div class="nombreGauchada derecha">Dueño: <?= $gauchada->nombre_usuario." ".$gauchada->apellido_usuario?></div>
                 <div class="nombreGauchada derecha">Localidad: <?= $gauchada->nombre_localidad ?></div>
                 <div class="nombreGauchada derecha">Categoría: <?= $gauchada->nombre_categorias ?></div>
-            </div>
-    </div>
-    <?php if(isset($misGauchadas)){ ?>
-    <div class="centrado_algo"><a href="<?= base_url().'publicar_gauchada/eliminarGauchada?idfavor='.$gauchada->id_favor ?>" class="eliminar">Eliminar gauchada</a></div>
+                </div>
+            </div><br>
+            <?php } if(isset($misGauchadas)){ ?>
+    <div class="centrado_algo"><a href="<?= base_url().'publicar_gauchada/eliminarGauchada?idfavor='.$gauchada->id_favor ?>" class="eliminar">Eliminar gauchada</a></div><br>
     <?php }?>
-    <br>
-        <?php }}?>
+    <?php }} ?>
     </div>
 </body>
 </html>
