@@ -43,10 +43,10 @@ class Usuario_model extends CI_Model{
 
     function actualizarPerfil($parametros){
         if ($parametros['imagen'] != NULL) {
-            $sql = "UPDATE usuarios_registrados SET nombre_usuario='$parametros[nombre]',apellido_usuario='$parametros[apellido]', fecha_nacimiento='$parametros[fecha_nacimiento]',foto_usuario='$parametros[imagen]', extension_foto='$parametros[extension]',telefono_usuario='$parametros[telefono]' WHERE id_usuario=$parametros[id]";
+            $sql = "UPDATE usuarios_registrados SET nombre_usuario='$parametros[nombre]',apellido_usuario='$parametros[apellido]', fecha_nacimiento='$parametros[fecha_nacimiento]',foto_usuario='$parametros[imagen]', extension_foto='$parametros[extension]',telefono_usuario='$parametros[telefono]', id_localidad='$parametros[localidad]' WHERE id_usuario=$parametros[id]";
         }
         else {
-           $sql = "UPDATE usuarios_registrados SET nombre_usuario='$parametros[nombre]',apellido_usuario='$parametros[apellido]', fecha_nacimiento='$parametros[fecha_nacimiento]', telefono_usuario='$parametros[telefono]' WHERE id_usuario=$parametros[id]";
+           $sql = "UPDATE usuarios_registrados SET nombre_usuario='$parametros[nombre]',apellido_usuario='$parametros[apellido]', fecha_nacimiento='$parametros[fecha_nacimiento]', telefono_usuario='$parametros[telefono]', id_localidad='$parametros[localidad]' WHERE id_usuario=$parametros[id]";
 
         }
         $this->db->query($sql);

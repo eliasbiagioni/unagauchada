@@ -28,6 +28,18 @@
         <p> Nombre: <input type="text" name="nombre" value="<?= $usuario->nombre_usuario?>"> </p>
         <p> Apellido: <input type="text" name="apellido" value="<?= $usuario->apellido_usuario?>"> </p>
         <p> Telefono: <input type="text" name="telefono" value="<?= $usuario->telefono_usuario?>"> </p>
+        <p> Localidad: <select name="localidad"><?php
+            foreach ($localidades as $localidad) {
+                if ($localidad->id_localidad == $usuario->id_localidad){
+                    $msj = "selected";
+                }
+                else $msj ="";
+                ?>
+                <option value="<?php echo "$localidad->id_localidad" ?>" <?= "$msj" ?> > <?php echo "$localidad->nombre_localidad"; ?></option>
+                <?php
+                }
+        ?>
+        </select></p>
         <p> Fecha de nacimiento (yyyy-mm-dd): <input type="text" name="nacimiento" value="<?= $usuario->fecha_nacimiento?>">
         <?php
 

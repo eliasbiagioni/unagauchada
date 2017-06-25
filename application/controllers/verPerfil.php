@@ -15,6 +15,8 @@ class verPerfil extends CI_Controller {
 			$email = $_GET['mail'];
 			$parametro['usuario'] = $this->usuario_model->obtenerDatosSesion($email);
 			$parametro['propio'] = 1;
+			$id_l = $parametro['usuario']->id_localidad;
+			$parametro['localidad'] = $this->db->query("SELECT nombre_localidad FROM localidades WHERE id_localidad=$id_l")->row();
 			$this->load->view('verPerfilUsuario',$parametro);
 		}
 		elseif (isset($_GET['id'])){
@@ -22,6 +24,8 @@ class verPerfil extends CI_Controller {
 			$resultado = $this->db->query("SELECT * FROM usuarios_registrados WHERE id_usuario=$id");
 			$parametro['usuario'] = $resultado->row();
 			$parametro['propio'] = 0;
+			$id_l = $parametro['usuario']->id_localidad;
+			$parametro['localidad'] = $this->db->query("SELECT nombre_localidad FROM localidades WHERE id_localidad=$id_l")->row();
 			$this->load->view('verPerfilUsuario',$parametro);
 		}
 
@@ -29,6 +33,7 @@ class verPerfil extends CI_Controller {
 
 	public function editarPerfil(){
 		$email = $this->session->userdata('email');
+		$parametro['localidades'] = $this->db->get('localidades')->result();
 		$parametro['usuario'] = $this->usuario_model->obtenerDatosSesion($email);
 		$this->load->view('editarPerfil',$parametro);
 
@@ -41,7 +46,8 @@ class verPerfil extends CI_Controller {
 			'nombre' => $this->input->post('nombre'),
 			'apellido' => $this->input->post('apellido'), 
 			'fecha_nacimiento' => $this->input->post('nacimiento'), 
-			'telefono' => $this->input->post('telefono'), 
+			'telefono' => $this->input->post('telefono'),
+			'localidad' => $this->input->post('localidad'), 
 			'imagen' => $url_imagen['contenido'],
 			'extension' => $url_imagen['extension'],
 		);
