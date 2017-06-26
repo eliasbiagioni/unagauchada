@@ -6,6 +6,9 @@ class VerGauchadaCompleta extends CI_Controller {
         parent::__construct();
         $this->load->model('Publicar_gauchada_model');
         $this->load->model('postulacion_model');
+        $this->load->model('mandarDatos');
+        $this->load->library('form_validation');
+        $this->form_validation->set_message('required', 'Ingrese respuesta');
         }
 
 
@@ -45,6 +48,31 @@ class VerGauchadaCompleta extends CI_Controller {
         $parameter['cantDias'] = $totDias;
         $parameter['id_favor'] = $id_favor;
         $this->load->view('detalleGauchada',$parameter);
+    }
+
+
+    function realizarPregunta(){
+        $parameters['id_favor'] = $_GET['idGauchada'];
+        $parameters['id_usuario'] = $_GET['idUsuario'];
+        $parameters['area_pregunta'] = array(
+                'name' => "pregunta",
+                'cols' => "70",
+                'rows' => "10",
+                'maxlength' => "600",
+                'placeholder' => "Escribe tu pregunta",
+                'id' => "pregunta"
+            );
+            $this->load->view('realizarPregunta',$parameters);
+    }
+
+    function mandarPregunta(){
+
+        $parametro['pregunta'] = $this->input->post('pregunta');
+        $parametro['id_favor'] = $_POST['id_favor'];
+        $parametro['id_usuario'] = $_POST['id_usuario'];
+        $this->mandarDatos->almacenarPregunta($parametro);
+        $parameter['mensaje'] = 'Pregunta enviada';
+        $this->load->view('mensajes',$parameter);
     }
     
 }

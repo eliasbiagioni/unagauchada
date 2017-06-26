@@ -20,6 +20,7 @@
                 <?php } else { ?>    
                 <li><a href="<?= base_url().'postulacion/index?idfavor='.$id_favor.'&idpostulante='.$this->session->userdata('id') ?>">Postularse como candidato</a></li>
                 <?php } ?>
+                <li><a href="<?= base_url().'verGauchadaCompleta/realizarPregunta?idGauchada='.$id_favor.'&idUsuario='.$this->session->userdata('id')?>">Realizar una pregunta</a></li>
                 <li><a href="<?= base_url() ?>publicar_gauchada/volverAInicio">Volver a la pagina de inicio</a></li>
             <?php }else if($this->session->userdata('login') == TRUE) { ?>
                 <li><a href="<?= base_url() ?>publicar_gauchada/volverAInicio">Volver a la pagina de inicio</a></li>

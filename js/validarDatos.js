@@ -1,3 +1,11 @@
+function noVacio(){
+    var pregunta = document.forms["formPreguntas"]["pregunta"].value;
+    if (pregunta == ""){
+        alert ("¡La pregunta no puede estar vacia!");
+        return false;
+    }
+}
+
 function validarFormulario() {
     var codigo = document.forms["mandarDatos"]["codigo"].value;
     var numeroTarjeta = document.forms["mandarDatos"]["numeroTarjeta"].value;

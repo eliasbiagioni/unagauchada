@@ -15,4 +15,9 @@ class mandarDatos extends CI_Model{
         $this->db->query("UPDATE usuarios_registrados SET creditos_usuario=$creditos_nuevos WHERE id_usuario='".$data['id']."'");
         return $creditos_nuevos;
     }
+
+    function almacenarPregunta($data){
+        $sql = "INSERT INTO `preguntas` (`id_pregunta`, `contenido_pregunta`, `contenido_respuesta`, `id_favor`, `id_usuario`) VALUES (NULL, '$data[pregunta]', '', '$data[id_favor]', '$data[id_usuario]')";
+        $this->db->query($sql);
+    }
 }
