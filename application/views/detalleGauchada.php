@@ -22,7 +22,9 @@
                     <li><a href="<?= base_url().'postulacion/cancelarCandidatura?idfavor='.$id_favor.'&idpostulante='.$this->session->userdata('id') ?>">Cancelar candidatura</a></li>
                 <?php } else { if ((!$existeCalificacion)&&(!$existeAceptado)){?>    
                 <li><a href="<?= base_url().'postulacion/index?idfavor='.$id_favor.'&idpostulante='.$this->session->userdata('id') ?>">Postularse como candidato</a></li>
-                <?php } } ?>
+                <?php }  ?>
+                <?php } ?>
+                <li><a href="<?= base_url().'verGauchadaCompleta/realizarPregunta?idGauchada='.$id_favor.'&idUsuario='.$this->session->userdata('id')?>">Realizar una pregunta</a></li>
                 <li><a href="<?= base_url() ?>publicar_gauchada/volverAInicio">Volver a la pagina de inicio</a></li>
             <?php }else if($this->session->userdata('login') == TRUE) { ?>
                 <li><a href="<?= base_url() ?>publicar_gauchada/volverAInicio">Volver a la pagina de inicio</a></li>
@@ -86,6 +88,13 @@
             <?php }?>
             <button type="button" class="desplegable" onclick="mostrarOcultar('preguntas')">Preguntas</button>
             <div id="preguntas"></div>
+
+            <?php
+                foreach ($preguntas as $pregunta) {
+                    echo $pregunta->contenido_pregunta;
+                    echo "<br>";
+                }
+            ?>
         </div>
     </div>
     </body>
