@@ -47,6 +47,7 @@ class VerGauchadaCompleta extends CI_Controller {
         }
         $parameter['cantDias'] = $totDias;
         $parameter['id_favor'] = $id_favor;
+        $parameter['preguntas'] = $this->mandarDatos->obtenerPreguntas($parameter);
         $this->load->view('detalleGauchada',$parameter);
     }
 

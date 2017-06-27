@@ -20,4 +20,11 @@ class mandarDatos extends CI_Model{
         $sql = "INSERT INTO `preguntas` (`id_pregunta`, `contenido_pregunta`, `contenido_respuesta`, `id_favor`, `id_usuario`) VALUES (NULL, '$data[pregunta]', '', '$data[id_favor]', '$data[id_usuario]')";
         $this->db->query($sql);
     }
+
+    function obtenerPreguntas($data){
+        $id = $data['id_favor'];
+        $sql = "SELECT * FROM preguntas WHERE id_favor=$id";
+        $result = $this->db->query($sql);
+        return $result->result();
+    }
 }

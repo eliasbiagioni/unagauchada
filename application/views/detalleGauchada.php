@@ -78,6 +78,13 @@
             <br>
             <button type="button" class="desplegable" onclick="mostrarOcultar('preguntas')">Preguntas</button>
             <div id="preguntas"></div>
+
+            <?php
+                foreach ($preguntas as $pregunta) {
+                    echo $pregunta->contenido_pregunta;
+                    echo "<br>";
+                }
+            ?>
         </div>
     </div>
     </body>
