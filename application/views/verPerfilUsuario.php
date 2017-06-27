@@ -47,11 +47,7 @@
     <div class="imagen"><img src="<?= $source_imagen ?>" width="400px" height="350px" alt=""/></div>
     <p> <h2>  Nombre: <?= $usuario->nombre_usuario ?> </p> </h2>
     <p> <h2>  Apellido: <?= $usuario->apellido_usuario ?> </p></h2>
-<<<<<<< HEAD
-=======
-    <p> <h2>  Email:  <?= $usuario->mail_usuario ?> </p> </h2>
     <p> <h2>  Localidad: <?= $localidad->nombre_localidad?></h2></p>
->>>>>>> origin/master
     <p> <h2> Fecha de nacimiento: <?= $usuario->fecha_nacimiento?></h2> </p>
     <?php if ($propio == 1) { ?>
         <p> <h2>  Créditos disponibles: <?= $usuario->creditos_usuario ?> </p></h2> 
