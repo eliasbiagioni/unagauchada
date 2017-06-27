@@ -8,6 +8,7 @@ class Iniciosesion extends CI_Controller {
         $this->load->model('usuario_model');
         $this->load->model('Publicar_gauchada_model');
         $this->load->library('javascript');
+        $this->load->database();
         $this->validaciones();
     }
     
@@ -69,7 +70,7 @@ class Iniciosesion extends CI_Controller {
                     'login' => TRUE,
                 );
                 $this->session->set_userdata($data);
-                $parameter['gauchadas'] = $this->Publicar_gauchada_model->obtenerGauchadas();
+                $parameter['gauchadas'] = $this->Publicar_gauchada_model->obtenerGauchadasSinUsuariosAceptados();
                 $this->load->view('sesionIniciada',$parameter);
             }
             else{
@@ -89,8 +90,8 @@ class Iniciosesion extends CI_Controller {
         $this->load->view('verPerfilUsuario');
     }
     
-    function validarPublicacionGauchada(){
-        $cantCreditos = $this->session->userdata('creditos_usuario');
+function validarPublicacionGauchada(){
+        $cantCreditos = $this->usuario_model->cant_creditos($this->session->userdata('id'))->creditos_usuario;
         if($cantCreditos > 0){
             header('Location: '.base_url().'publicar_gauchada?tipo=0');
         }else{

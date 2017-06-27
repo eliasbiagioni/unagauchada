@@ -53,6 +53,7 @@
         ?>
         <div class="localidad"><p class="letra">Localidad: <?= $gauchada->nombre_localidad ?></p></div><hr>
         <div class="localidad"><p class="letra">Categoría: <?= $gauchada->nombre_categorias ?></p></div><hr>
+        <div class="localidad"><p class="letra">Fecha de creación: <?= $gauchada->fecha_creacion ?></p></div><hr>
         <div class="localidad"><p class="letra"><?= $mensaje ?></h3></div><hr>
         <div class="localidad"><p class="letra">Cantidad de postulantes: <?= $cant_postulantes ?></p></div><hr>
         <div>
@@ -61,7 +62,7 @@
             <div class="oculto" id="postulantes" >
             <?php if($cant_postulantes == 0){echo 'No hay postulantes';} else { foreach ($postulantes as $usuario) { if(($usuario->estado == 'Aceptado')||($usuario->estado == 'Pendiente')){ ?><hr>
                 <div><p class="letra">Usuario: <a href="<?= 'verPerfil?id='.$usuario->id_usuario?>"> <?= $usuario->nombre_usuario." ".$usuario->apellido_usuario ?></a></p></div>
-                <div><p class="letra">Logro: <?= $usuario->puntos_usuario." pts (Despúes debe ir la reputacion del usuario)"?></p></div>
+                <div><p class="letra">Logro: <?= $usuario->nombre_reputacion." ( ".$usuario->puntos_usuario." pts )"?></p></div>
                 <div><p class="letra">Comentario: <?= $usuario->comentario ?></p></div>
                 <div><p class="letra">Respuesta: <?php if($usuario->respuesta != NULL) {echo $usuario->respuesta;} else { echo "No hay respuesta"; } ?></p></div>
                 <div><p class="letra">Estado: <?= $usuario->estado ?></p></div>
@@ -78,7 +79,7 @@
                 <?php } ?>
                     
                 <?php if($usuario->estado == 'Pendiente') { ?>
-                    <div><a href="<?= base_url().'postulacion/seleccionarPostulante?idfavor='.$idfavor.'&idpostulante='.$usuario->id_usuario ?>">Seleccionar postulante</a></div>
+                    <div><a OnClick="if (! confirm('¿Esta seguro que desea seleccionar este postulante?')) return false;" href="<?= base_url().'postulacion/seleccionarPostulante?idfavor='.$idfavor.'&idpostulante='.$usuario->id_usuario ?>" >Seleccionar postulante</a></div>
                 <?php } }  ?>
             <?php  } } ?>
             </div>

@@ -8,6 +8,7 @@ class Publicar_gauchada extends CI_Controller {
         $this->load->helper('date');
         $this->load->model('Publicar_gauchada_model');
         $this->load->model('usuario_model');
+        $this->load->model('postulacion_model');
         $this->load->model('buscarGauchada');
         $this->load->database();
         $this->validaciones();
@@ -49,21 +50,26 @@ class Publicar_gauchada extends CI_Controller {
             }
         }
 
-        public function obtener_imagen(){
+        public function obtener_imagen($tipo){
             if($_FILES['pic']['name']){
                 $image = $_FILES['pic'];
                 $var = array(
 			'type' => $image['type'],
 			'tmp_name' => $image['tmp_name']
                 );
-                $pepe = file_get_contents($var['tmp_name']);
+                if ($tipo == 0){
+                    $pepe = file_get_contents($var['tmp_name']);
+                }else{
+                    $pepe = addslashes(file_get_contents($var['tmp_name']));
+                }
                 $pepe2 = $var['type'];
                 $propiedades_imagen['contenido'] = $pepe;
                 $propiedades_imagen['extension'] = $pepe2;
                 }
             else{
                 $propiedades_imagen['contenido'] = NULL;
-                $propiedades_imagen['extension'] = NULL;}
+                $propiedades_imagen['extension'] = NULL;
+                }
             return $propiedades_imagen;
     }
 
@@ -103,7 +109,7 @@ class Publicar_gauchada extends CI_Controller {
             }
         }else{
             if($_GET['tipo'] == 0){
-                $this->mandarDatos().'?tipo=0';
+                $this->mandarDatos().'?tipo=0&idfavor=0';
             }else{
                 $this->mandarDatos().'?tipo=1&idfavor='.$_GET['idfavor'];
             }  
@@ -133,7 +139,6 @@ class Publicar_gauchada extends CI_Controller {
 
 		$formulario['imagen'] = array(
                     'type' => 'file',
-                    'enctype' => 'multipart/form-data',
                     'name' => 'pic',
         );
 		return $formulario;
@@ -141,8 +146,10 @@ class Publicar_gauchada extends CI_Controller {
 
 	public function mandarDatos(){
 		#Con esta funcion hay que mandar los datos al modelo Publicar_gauchada para que los suba a la BBDD
+            $tipo = $_GET['tipo'];
+            $idfavor = $_GET['idfavor'];
             $cantDias = $this->input->post('cantDias');
-            $url_imagen = $this->obtener_imagen();
+            $url_imagen = $this->obtener_imagen($tipo);
             $fecha = date('Y-m-d');
             $nuevafecha = strtotime ( '+'.$cantDias.' day' , strtotime ( $fecha ) ) ;
             $expiracion = date ( 'Y-m-d' , $nuevafecha );
@@ -156,17 +163,16 @@ class Publicar_gauchada extends CI_Controller {
                 'extension_imagen' => $url_imagen['extension'],
                 'usuario' => $this->session->userdata('id'),
         );
-            $tipo = $_GET['tipo'];
+            
             if($tipo == 0){
                 $this -> Publicar_gauchada_model -> almacenar_gauchada($data);
-                $creditos = $this->session->userdata('creditos_usuario');
+                $creditos = $this->usuario_model->cant_creditos($this->session->userdata('id'))->creditos_usuario;
                 $creditos--;
                 $parametrosModelo = array(
                     'id' => $this->session->userdata('id'),
                     'creditos' => $creditos,
                     );
                 $parameter['creditos'] = $creditos;
-                $this->session->set_userdata('creditos_usuario',$creditos);
                 $this->usuario_model->actualizarCreditos($parametrosModelo);
                 $parameter['mensaje'] = 'Gauchada publicada exitosamente.';
             }else{
@@ -207,7 +213,7 @@ class Publicar_gauchada extends CI_Controller {
             'login' => TRUE,
          );
          $this->session->set_userdata($data);
-         $parameter['gauchadas'] = $this->Publicar_gauchada_model->obtenerGauchadas();
+         $parameter['gauchadas'] = $this->Publicar_gauchada_model->obtenerGauchadasSinUsuariosAceptados();
          $this->load->view('sesionIniciada',$parameter);
      }
      function comprobarCantDias(){
@@ -221,5 +227,27 @@ class Publicar_gauchada extends CI_Controller {
     function eliminarGauchada(){
         $idfavor = $_GET['idfavor'];
         $consulta = $this->Publicar_gauchada_model->existeGauchadaSinCalificar($idfavor);
+        if($consulta > 0){
+            echo "<script>
+            alert('Posees un usuario sin calificar en esta gauchada. Por favor, califiquelo para poder eliminar');
+            window.location.href='" . base_url() . "verPerfil/usuariosSinCalificar';
+            </script>";
+        }else{
+            $postulantes = $this->postulacion_model->postulantes($idfavor);
+            $this->Publicar_gauchada_model->eliminarGauchada($idfavor);
+            if($postulantes->num_rows() > 0){
+                $parameter['mensaje'] = 'Gauchada eliminada exitosamente pero no se devolvió credito.';
+            }else{
+                $creditos = $this->usuario_model->cant_creditos($this->session->userdata('id'))->creditos_usuario;
+                $creditos++;
+                $datos = array(
+                    'creditos' => $creditos,
+                    'id' => $this->session->userdata('id'),
+                );
+                $this->usuario_model->actualizarCreditos($datos);
+                $parameter['mensaje'] = 'Gauchada eliminada exitosamente y se devolvió credito.';
+            }
+            $this->load->view('mensajes',$parameter);
+        }
     }
 }

@@ -19,8 +19,7 @@
     <h1 class="letra"><?= $mensaje.' gauchada' ?></h1><br>
     
     <div  class="contenedorRegistroGauchada letra">
-        <?php if($mensaje == 'Nueva'){ echo 'Créditos disponibles: '.$creditos .'<br><br>'; } ?>
-        <?php if($mensaje == 'Editar') {echo form_open_multipart("Publicar_gauchada/validar_datos?tipo=1&diasRestantes=".$diasRestantes.'&idfavor='.$idfavor);} else { echo form_open_multipart("Publicar_gauchada/validar_datos?tipo=0");}?>
+        <?php if($mensaje == 'Editar') {echo form_open_multipart("Publicar_gauchada/validar_datos?tipo=1&diasRestantes=".$diasRestantes.'&idfavor='.$idfavor);} else { echo form_open_multipart("Publicar_gauchada/validar_datos?tipo=0&idfavor=0");}?>
         <div>
             <div><?= form_label('<p>Título de la Gauchada: </p>','titulo');?></div>
             <div><input name="titulo" type="text" placeholder="Escribe el titulo" class="tamaño-campos" id="titulo" value="<?php if($mensaje == 'Editar') { echo $gauchada->titulo_favor; } else { if (isset($_POST['titulo'])){ echo $_POST['titulo']; } } ?>"/></div>
@@ -45,7 +44,7 @@
                 <div class="imagen"><img src="<?= $source_imagen ?>" width="400px" height="350px" alt=""/></div> </p>
             <?php } ?>
             <div><?= form_label('Imagen: ');?></div>
-            <div><?= form_upload($form['imagen']);?></div>
+            <div><input type="file" name="pic"></div>
             <span><?= form_error('pic') ?></span>
         </div>
         <div>

@@ -55,7 +55,11 @@ class verPerfil extends CI_Controller {
 	public function verMisGauchadas(){
 		$id = $this->session->userdata('id');
 		$parameter['gauchadas'] = $this->Publicar_gauchada_model->obtenerMisGauchadas($id);
-		$parameter['misGauchadas'] = "Estas son tus Gauchadas";
+                if (sizeof($parameter['gauchadas']) == 0){
+                    $parameter['misGauchadas'] = "No posees gauchadas publicadas";
+                }else{
+                    $parameter['misGauchadas'] = "Estas son tus Gauchadas";
+                }
 		$parameter['soloVolver'] = TRUE;
         $this->load->view('sesioniniciada',$parameter);
 

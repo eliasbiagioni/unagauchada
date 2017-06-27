@@ -22,8 +22,8 @@ class Postulacion_model extends CI_Model {
         }
         
     function postulantes($id_favor){
-        $contulta = $this->db->query("SELECT ur.telefono_usuario,ur.mail_usuario,ur.id_usuario,ur.nombre_usuario,ur.apellido_usuario,ur.puntos_usuario,sp.comentario,sp.respuesta,sp.id_postulacion,sp.estado FROM `se_postula` sp INNER JOIN `usuarios_registrados` ur ON (sp.id_usuario=ur.id_usuario) WHERE id_favor='".$id_favor."' ORDER BY ur.puntos_usuario DESC");
-        return $contulta;
+        $consulta = $this->db->query("SELECT tr.nombre_reputacion, ur.telefono_usuario,ur.mail_usuario,ur.id_usuario,ur.nombre_usuario,ur.apellido_usuario,ur.puntos_usuario,sp.comentario,sp.respuesta,sp.id_postulacion,sp.estado FROM `se_postula` sp INNER JOIN `usuarios_registrados` ur ON (sp.id_usuario=ur.id_usuario) INNER JOIN `tabla_reputacion` tr WHERE id_favor='".$id_favor."' AND ur.puntos_usuario BETWEEN tr.puntaje_minimo AND tr.puntaje_maximo ORDER BY ur.puntos_usuario DESC");
+        return $consulta;
     }
     
     function cancelarCandidatura($datos){

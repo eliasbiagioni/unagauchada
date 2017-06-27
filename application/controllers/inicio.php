@@ -18,7 +18,7 @@ class Inicio extends CI_Controller {
             'name' => "inicio_sesion",
             'value' => "Iniciar sesión",
         );
-        $parameter['gauchadas'] = $this->Publicar_gauchada_model->obtenerGauchadas();
+        $parameter['gauchadas'] = $this->Publicar_gauchada_model->obtenerGauchadasSinUsuariosAceptados();
         $this->load->view('inicio',$parameter);
     }
 }

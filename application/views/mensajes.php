@@ -41,6 +41,5 @@
     </div>
         <hr class="longitud">
         <h1 class="letra"><?= $mensaje ?></h1>
-        <?php if($mensaje == "Gauchada publicada exitosamente."){ echo 'Creditos ahora: '.$creditos; } ?>
     </body>
 </html>

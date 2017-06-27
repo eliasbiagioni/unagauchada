@@ -79,7 +79,6 @@
             <div>
                 <div><p class="aver">Los campos con * son obligatorios</p></div>
             </div>
-            <?php echo $this->input->post('ciudades'); ?>
             <?= form_close() ?>
         </div>
 </body>
