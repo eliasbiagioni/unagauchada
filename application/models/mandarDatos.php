@@ -22,8 +22,13 @@ class mandarDatos extends CI_Model{
     }
     function obtenerPreguntas($data){
         $id = $data['id_favor'];
-        $sql = "SELECT * FROM preguntas WHERE id_favor=$id";
+        $sql = "SELECT p.contenido_pregunta,p.contenido_respuesta,ur.nombre_usuario,ur.apellido_usuario FROM `preguntas` p INNER JOIN `usuarios_registrados` ur ON (p.id_usuario=ur.id_usuario) WHERE p.id_favor=$id";
         $result = $this->db->query($sql);
         return $result->result();
+    }
+
+    function almacenarRespuesta($data){
+        $sql = "UPDATE `preguntas` SET `contenido_respuesta` = '$data[respuesta]' WHERE `preguntas`.`id_favor` = $data[id_favor] ";
+        $this->db->query($sql);
     }
 }

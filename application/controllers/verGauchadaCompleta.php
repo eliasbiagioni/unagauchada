@@ -101,4 +101,26 @@ class VerGauchadaCompleta extends CI_Controller {
         $parameter['idfavor'] = $idfavor;
         $this->load->view('editarGauchada',$parameter);
     }
+
+    function responderPregunta(){
+        $parameters['id_favor'] = $_GET['idGauchada'];
+        $parameters['pregunta'] = $_GET['pregunta'];
+        $parameters['area_respuesta'] = array(
+                'name' => "respuesta",
+                'cols' => "70",
+                'rows' => "10",
+                'maxlength' => "600",
+                'placeholder' => "Escribe la respuesta a la pregunta",
+                'id' => "respuesta"
+        );
+        $this->load->view('responderPregunta',$parameters);
+    }
+
+    function mandarRespuesta(){
+        $parametro['respuesta'] = $this->input->post('respuesta');
+        $parametro['id_favor'] = $this->input->post('id_favor');
+        $this->mandarDatos->almacenarRespuesta($parametro);
+        $parameter['mensaje'] = 'Respuesta enviada';
+        $this->load->view('mensajes',$parameter);
+    }
 }

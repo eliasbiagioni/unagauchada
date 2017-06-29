@@ -87,15 +87,37 @@
             </div>
             <?php }?>
             <button type="button" class="desplegable" onclick="mostrarOcultar('preguntas')">Preguntas</button>
-            <div id="preguntas"></div>
-
+            <div id="preguntas">
+            <br>
             <?php
                 foreach ($preguntas as $pregunta) {
-                    echo $pregunta->contenido_pregunta;
-                    echo "<br>";
+
+                    
+                    ?>  <div class="pregunta">
+                        
+                            <p> El usuario <strong> <?php echo "$pregunta->nombre_usuario $pregunta->apellido_usuario"?></strong> escribió</p>
+
+                            <p> <i> <?= $pregunta->contenido_pregunta ?> </i></p>
+
+                            <p><strong>Respuesta: </strong></p>
+
+                            <?php if ($pregunta->contenido_respuesta == NULL){
+                                    echo "Todavia no hay respuesta";
+                                    if (($this->session->userdata('id')) == ($gauchada->id_usuario_dueño)){
+                                        ?> <p><a href="<?= base_url().'verGauchadaCompleta/responderPregunta?pregunta='.$pregunta->contenido_pregunta.'&idGauchada='.$id_favor.'&idUsuario='.$this->session->userdata('id')?>"> Responder </a></p><?php
+                                    }
+                            } 
+                                 else {
+                                    echo "<i> $pregunta->contenido_respuesta </i>";
+                                 }
+                            ?>
+                        </div>
+                        <br>
+                        <?php
+
                 }
             ?>
-        </div>
+        </div></div>
     </div>
     </body>
 </html>    
