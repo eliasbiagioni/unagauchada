@@ -22,7 +22,6 @@
     <div class="contenedorRegistroGauchada letra" >
         <?php
             echo "Pregunta: $pregunta <br><br>";
-            echo "Se esta respondiendo al favor $id_favor";
             echo form_open('verGauchadaCompleta/mandarRespuesta','name="formRespuesta" onsubmit="return noVacio()""'); 
             echo form_textarea($area_respuesta);
             echo '<span>'.form_error('respuesta').'</span>';

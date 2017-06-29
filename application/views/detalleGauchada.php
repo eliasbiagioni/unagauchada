@@ -63,14 +63,14 @@
             <button type="button" class="desplegable" onclick="mostrarOcultar('postulantes')">Lista de postulantes</button>
             <div class="oculto" id="postulantes" >
             <?php if($cant_postulantes == 0){echo 'No hay postulantes';} else { foreach ($postulantes as $usuario) { if(($usuario->estado == 'Aceptado')||($usuario->estado == 'Pendiente')){ ?><hr>
-                <div><p class="letra">Usuario: <a href="<?= 'verPerfil?id='.$usuario->id_usuario?>"> <?= $usuario->nombre_usuario." ".$usuario->apellido_usuario ?></a></p></div>
-                <div><p class="letra">Logro: <?= $usuario->nombre_reputacion." ( ".$usuario->puntos_usuario." pts )"?></p></div>
-                <div><p class="letra">Comentario: <?= $usuario->comentario ?></p></div>
-                <div><p class="letra">Respuesta: <?php if($usuario->respuesta != NULL) {echo $usuario->respuesta;} else { echo "No hay respuesta"; } ?></p></div>
-                <div><p class="letra">Estado: <?= $usuario->estado ?></p></div>
+                <div><p class="letra"><strong> Usuario: </strong><a href="<?= 'verPerfil?id='.$usuario->id_usuario?>"> <?= $usuario->nombre_usuario." ".$usuario->apellido_usuario ?></a></p></div>
+                <div><p class="letra"><strong> Logro: </strong><?= $usuario->nombre_reputacion." ( ".$usuario->puntos_usuario." pts )"?></p></div>
+                <div><p class="letra"><strong> Comentario: </strong><?= $usuario->comentario ?></p></div>
+                <div><p class="letra"><strong> Respuesta:</strong> <?php if($usuario->respuesta != NULL) {echo $usuario->respuesta;} else { echo "No hay respuesta"; } ?></p></div>
+                <div><p class="letra"><strong> Estado: </strong><?= $usuario->estado ?></p></div>
                 <?php if ($usuario->estado == 'Aceptado'){ ?>
-                    <div><p class="letra">Mail: <?= $usuario->mail_usuario?></p></div>
-                    <div><p class="letra">Teléfono: <?= $usuario->telefono_usuario ?></p></div>
+                    <div><p class="letra"><strong> Mail: </strong><?= $usuario->mail_usuario?></p></div>
+                    <div><p class="letra"><strong> Teléfono: </strong><?= $usuario->telefono_usuario ?></p></div>
                     <?php if (!$existeCalificacion) { ?>
                     <div><a href="<?= base_url().'calificaciones/index?idfavor='.$idfavor.'&idusuariocalificar='.$usuario->id_usuario ?>">Calificar usuario</a></div>
                 <?php } else { ?> 
@@ -87,7 +87,7 @@
             </div>
             <?php }?>
             <button type="button" class="desplegable" onclick="mostrarOcultar('preguntas')">Preguntas</button>
-            <div id="preguntas">
+            <div class="oculto" id="preguntas">
             <br>
             <?php
                 foreach ($preguntas as $pregunta) {
