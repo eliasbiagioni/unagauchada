@@ -124,3 +124,17 @@ body {
     padding:1px;
     margin:auto;
 }
+
+.contenedorDetallePerfil{
+    margin: auto;
+    width: 600px;
+    padding: 5px;
+}
+
+.imagenPerfil{
+    margin: auto;
+    width: 400px;
+}
+.centrarh1{
+    text-align: center;
+}
