@@ -1,15 +1,15 @@
-function noVacio(){
-    var pregunta = document.forms["formPreguntas"]["pregunta"].value;
-    if (pregunta == ""){
-        alert ("¡La pregunta no puede estar vacia!");
+function RespuestaNoVacia(){
+    var respuesta = document.forms["formRespuesta"]["respuesta"].value;
+    if (respuesta == ""){
+        alert("La respuesta no puede estar vacia!");
         return false;
     }
 }
 
-function respuestaNoVacia(){
-    var respuesta = document.forms["formRespuesta"]["respuesta"].value;
-    if (respuesta == ""){
-        alert("La respuesta no puede estar vacia!");
+function noVacio(){
+    var pregunta = document.forms["formPreguntas"]["pregunta"].value;
+    if (pregunta == ""){
+        alert ("¡La pregunta no puede estar vacia!");
         return false;
     }
 }
