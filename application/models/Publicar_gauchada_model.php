@@ -32,7 +32,7 @@ class Publicar_gauchada_model extends CI_Model {
     }
 
     function obtenerMisGauchadas($id){
-        $consulta = $this->db->query("SELECT c.nombre_categorias,l.nombre_localidad,u.nombre_usuario,u.apellido_usuario,f.id_favor,f.titulo_favor,f.contenido_imagen,f.extension_imagen,f.fecha_expiracion FROM favores f INNER JOIN usuarios_registrados u ON(f.id_usuario_dueño=u.id_usuario) INNER JOIN localidades l ON (f.id_localidad=l.id_localidad) INNER JOIN categorias c ON(f.id_categoria=c.id_categoria) WHERE id_usuario_dueño='$id' ORDER BY f.fecha_expiracion ASC ");
+        $consulta = $this->db->query("SELECT c.nombre_categorias,l.nombre_localidad,u.nombre_usuario,u.apellido_usuario,f.id_favor,f.titulo_favor,f.contenido_imagen,f.extension_imagen,f.fecha_expiracion FROM favores f INNER JOIN usuarios_registrados u ON(f.id_usuario_dueño=u.id_usuario) INNER JOIN localidades l ON (f.id_localidad=l.id_localidad) INNER JOIN categorias c ON(f.id_categoria=c.id_categoria) WHERE id_usuario_dueño='$id' ORDER BY f.fecha_creacion DESC ");
         return $consulta->result();
     }
 
