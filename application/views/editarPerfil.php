@@ -3,7 +3,7 @@
     <head>
         <link href="http://localhost/unagauchada/css/imagen_principal.css" rel="stylesheet" type="text/css" />
         <link href="http://localhost/unagauchada/css/sesionIniciada.css" rel="stylesheet" type="text/css" />
-
+        <script type="text/javascript" charset="utf-8" src="http://localhost/unagauchada/js/validarDatos.js"></script> 
         <script type="text/javascript" charset="utf-8" src="http://localhost/unagauchada/js/botonAtras.js"></script>
         <title>Una Gauchada - Editando Perfil</title>
     </head>
@@ -25,7 +25,7 @@
 
     <h1>Editando perfil</h1>
 
-    <form action="<?= base_url()?>verPerfil/actualizarPerfil" method="POST" enctype="multipart/form-data">
+    <form name="perfil" action="<?= base_url()?>verPerfil/actualizarPerfil" method="POST" enctype="multipart/form-data" onsubmit="return perfilNoVacio()">
         <p> Nombre: <input type="text" name="nombre" value="<?= $usuario->nombre_usuario?>"> </p>
         <p> Apellido: <input type="text" name="apellido" value="<?= $usuario->apellido_usuario?>"> </p>
         <p> Telefono: <input type="text" name="telefono" value="<?= $usuario->telefono_usuario?>"> </p>
