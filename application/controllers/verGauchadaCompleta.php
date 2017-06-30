@@ -65,7 +65,9 @@ class VerGauchadaCompleta extends CI_Controller {
             $parameter['existeAceptado'] = FALSE;
             $parameter['existeCalificacion'] = FALSE;
         }
-        $parameter['preguntas'] = $this->mandarDatos->obtenerPreguntas($parameter);
+        $preg = $this->mandarDatos->obtenerPreguntas($parameter);
+        $parameter['preguntas'] = $preg->result();
+        $parameter['cantPreguntas'] = $preg->num_rows();
 
         $this->load->view('detalleGauchada',$parameter);
     }
@@ -105,6 +107,7 @@ class VerGauchadaCompleta extends CI_Controller {
     function responderPregunta(){
         $parameters['id_favor'] = $_GET['idGauchada'];
         $parameters['pregunta'] = $_GET['pregunta'];
+        $parameters['id_pregunta'] = $_GET['id'];
         $parameters['area_respuesta'] = array(
                 'name' => "respuesta",
                 'cols' => "70",
@@ -119,6 +122,7 @@ class VerGauchadaCompleta extends CI_Controller {
     function mandarRespuesta(){
         $parametro['respuesta'] = $this->input->post('respuesta');
         $parametro['id_favor'] = $this->input->post('id_favor');
+        $parametro['id_pregunta'] = $this->input->post('id_pregunta');
         $this->mandarDatos->almacenarRespuesta($parametro);
         $parameter['mensaje'] = 'Respuesta enviada';
         $this->load->view('mensajes',$parameter);

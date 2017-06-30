@@ -90,6 +90,11 @@
             <div class="oculto" id="preguntas">
             <br>
             <?php
+
+                if ($cantPreguntas == 0){
+                    echo "Todavía no hay preguntas!";
+                }
+                else {
                 foreach ($preguntas as $pregunta) {
 
                     
@@ -104,7 +109,7 @@
                             <?php if ($pregunta->contenido_respuesta == NULL){
                                     echo "Todavia no hay respuesta";
                                     if (($this->session->userdata('id')) == ($gauchada->id_usuario_dueño)){
-                                        ?> <p><a href="<?= base_url().'verGauchadaCompleta/responderPregunta?pregunta='.$pregunta->contenido_pregunta.'&idGauchada='.$id_favor.'&idUsuario='.$this->session->userdata('id')?>"> Responder </a></p><?php
+                                        ?> <p><a href="<?= base_url().'verGauchadaCompleta/responderPregunta?id='.$pregunta->id_pregunta.'&pregunta='.$pregunta->contenido_pregunta.'&idGauchada='.$id_favor.'&idUsuario='.$this->session->userdata('id')?>"> Responder </a></p><?php
                                     }
                             } 
                                  else {
@@ -116,6 +121,7 @@
                         <?php
 
                 }
+            }
             ?>
         </div></div>
     </div>

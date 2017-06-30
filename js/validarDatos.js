@@ -6,6 +6,14 @@ function noVacio(){
     }
 }
 
+function respuestaNoVacia(){
+    var respuesta = document.forms["formRespuesta"]["respuesta"].value;
+    if (respuesta == ""){
+        alert("La respuesta no puede estar vacia!");
+        return false;
+    }
+}
+
 function validarFormulario() {
     var codigo = document.forms["mandarDatos"]["codigo"].value;
     var numeroTarjeta = document.forms["mandarDatos"]["numeroTarjeta"].value;

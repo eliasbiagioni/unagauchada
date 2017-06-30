@@ -22,12 +22,13 @@
     <div class="contenedorRegistroGauchada letra" >
         <?php
             echo "Pregunta: $pregunta <br><br>";
-            echo form_open('verGauchadaCompleta/mandarRespuesta','name="formRespuesta" onsubmit="return noVacio()""'); 
+            echo form_open('verGauchadaCompleta/mandarRespuesta','name="formRespuesta" onsubmit="return respuestaNoVacia()""'); 
             echo form_textarea($area_respuesta);
             echo '<span>'.form_error('respuesta').'</span>';
             echo br();
             ?>
             <input type="hidden" name="id_favor" value="<?php echo $id_favor ?>">
+            <input type="hidden" name="id_pregunta" value="<?php echo $id_pregunta ?>">
             <?php
             echo form_submit('','Enviar respuesta');
             echo form_close();
