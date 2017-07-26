@@ -19,9 +19,9 @@
             <?php }?>
             <?php if(($this->session->userdata('login') == TRUE) && ($cantDias > 0) && ($this->session->userdata('id') != ($gauchada->id_usuario_dueño))&(!$existeCalificacion)&(!$existeAceptado)){ 
                 if($se_postulo > 0) { ?>
-                    <li><a href="<?= base_url().'postulacion/cancelarCandidatura?idfavor='.$id_favor.'&idpostulante='.$this->session->userdata('id') ?>">Cancelar candidatura</a></li>
+                    <li><a OnClick="if (! confirm('¿Esta seguro que desea cancelar su candidatura a esta gauchada?')) return false;" href="<?= base_url().'postulacion/cancelarCandidatura?idfavor='.$id_favor.'&idpostulante='.$this->session->userdata('id') ?>">Cancelar candidatura</a></li>
                 <?php } else { if ((!$existeCalificacion)&&(!$existeAceptado)){?>    
-                <li><a href="<?= base_url().'postulacion/index?idfavor='.$id_favor.'&idpostulante='.$this->session->userdata('id') ?>">Postularse como candidato</a></li>
+                <li><a OnClick="if (! confirm('¿Esta seguro que desea postularse como candidato a esta gauchada?')) return false;" href="<?= base_url().'postulacion/index?idfavor='.$id_favor.'&idpostulante='.$this->session->userdata('id') ?>">Postularse como candidato</a></li>
                 <?php }  ?>
                 <?php } ?>
                 <li><a href="<?= base_url().'verGauchadaCompleta/realizarPregunta?idGauchada='.$id_favor.'&idUsuario='.$this->session->userdata('id')?>">Realizar una pregunta</a></li>
@@ -66,7 +66,6 @@
                 <div><p class="letra"><strong> Usuario: </strong><a href="<?= 'verPerfil?id='.$usuario->id_usuario?>"> <?= $usuario->nombre_usuario." ".$usuario->apellido_usuario ?></a></p></div>
                 <div><p class="letra"><strong> Logro: </strong><?= $usuario->nombre_reputacion." ( ".$usuario->puntos_usuario." pts )"?></p></div>
                 <div><p class="letra"><strong> Comentario: </strong><?= $usuario->comentario ?></p></div>
-                <div><p class="letra"><strong> Respuesta:</strong> <?php if($usuario->respuesta != NULL) {echo $usuario->respuesta;} else { echo "No hay respuesta"; } ?></p></div>
                 <div><p class="letra"><strong> Estado: </strong><?= $usuario->estado ?></p></div>
                 <?php if ($usuario->estado == 'Aceptado'){ ?>
                     <div><p class="letra"><strong> Mail: </strong><?= $usuario->mail_usuario?></p></div>
@@ -76,9 +75,6 @@
                 <?php } else { ?> 
                         <div><p class="letra">Usuario calificado</p></div>
                 <?php } } ?>
-                <?php if(($usuario->respuesta == NULL)&($mensaje != 'Expiró')&(!$existeCalificacion)) { ?>
-                        <div><a href="<?= base_url().'respuestaComentario/index?idpostulacion='.$usuario->id_postulacion.'&idfavor='.$gauchada->id_favor.'&comentario='.$usuario->comentario ?>">Responder comentario</a></div>
-                <?php } ?>
                     
                 <?php if($usuario->estado == 'Pendiente') { ?>
                     <div><a OnClick="if (! confirm('¿Esta seguro que desea seleccionar este postulante?')) return false;" href="<?= base_url().'postulacion/seleccionarPostulante?idfavor='.$idfavor.'&idpostulante='.$usuario->id_usuario ?>" >Seleccionar postulante</a></div>

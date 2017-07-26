@@ -26,7 +26,7 @@
                  <input type="submit" value="Buscar">
                  </form> </li>
                 <?php if($this->session->userdata('es_administrador') == 1){ ?>
-                    <li><a href="#' ?>">Administrar</a></li>
+                <li><a href="<?= base_url().'administrar' ?>">Administrar</a></li>
                  <?php } ?>    
                 <li><a href="<?= base_url().'verPerfil?mail='.$this->session->userdata('email') ?>">Ver perfil</a></li>
                 <li><a href="<?= base_url().'iniciosesion/validarPublicacionGauchada' ?>">Nueva gauchada</a></li>

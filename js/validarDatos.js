@@ -4,40 +4,7 @@ function RespuestaNoVacia(){
         alert("La respuesta no puede estar vacia!");
         return false;
     }
-}
-
- function perfilNoVacio(){
-    var nombre = document.forms["perfil"]["nombre"].value;
-    var apellido = document.forms["perfil"]["apellido"].value;
-    var telefono = document.forms["perfil"]["telefono"].value;
-    var localidad = document.forms["perfil"]["localidad"].value;
-    var nacimiento = document.forms["perfil"]["nacimiento"].value;
-
-    var letras=/^[A-Za-z\_\-\.\s\xF1\xD1]+$/;
-    var numeros = /^[0-9]+$/;
-
-    if ((nombre == "") || (apellido == "") || (telefono == "") || (localidad == "") || (nacimiento == "")){
-        alert("Alguno de los campos esta vacío");
-        return false;
     }
-
-    if (! letras.test(nombre)){
-        alert("El nombre debe tener solo letras");
-        return false;
-    }
-    if (! letras.test(apellido)){
-        alert("El apellido debe tener solo letras");
-        return false;
-    }
-
-    if (! numeros.test(telefono)){
-        alert("El telefono debe tener solo numeros");
-        return false;
-    }
-
-    
- }
-
 
 function noVacio(){
     var pregunta = document.forms["formPreguntas"]["pregunta"].value;
@@ -106,6 +73,37 @@ function validarFormulario() {
     else {
         return false;
     }
-
 }
 
+function perfilNoVacio(){
+    var nombre = document.forms["perfil"]["nombre"].value;
+    var apellido = document.forms["perfil"]["apellido"].value;
+    var telefono = document.forms["perfil"]["telefono"].value;
+    var localidad = document.forms["perfil"]["localidad"].value;
+    var nacimiento = document.forms["perfil"]["nacimiento"].value;
+
+    var letras=/^[A-Za-z\_\-\.\s\xF1\xD1]+$/;
+    var numeros = /^[0-9]+$/;
+
+    if ((nombre == "") || (apellido == "") || (telefono == "") || (localidad == "") || (nacimiento == "")){
+        alert("Alguno de los campos esta vacío");
+        return false;
+    }
+
+    if (! letras.test(nombre)){
+        alert("El nombre debe tener solo letras");
+        return false;
+    }
+    if (! letras.test(apellido)){
+        alert("El apellido debe tener solo letras");
+        return false;
+    }
+
+    if (! numeros.test(telefono)){
+        alert("El telefono debe tener solo numeros");
+        return false;
+    }
+
+    
+ }
+    
