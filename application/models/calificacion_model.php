@@ -14,6 +14,9 @@ class Calificacion_model extends CI_Model {
     
     function agregarNuevaCalificacion($datos){
         $this->db->insert('calificaciones', array(
+            'nombre_usuario_calificado' => $datos['nombreusuariocalificar'],
+            'nombre_usuario_calificador' => $datos['nombreusuariocalificador'],
+            'titulo_gauchada' => $datos['titulogauchada'],
             'calificacion' => $datos['calificacion'],
             'comentario' => $datos['comentario'],
             'id_usuario' => $datos['idusuario'],
@@ -28,5 +31,15 @@ class Calificacion_model extends CI_Model {
             return $consulta->result()[0]->id_usuario;
         }
         return 0;
+    }
+    
+    function obtenerCalificacionesDadas($id){
+        $consulta = $this->db->query("SELECT c.calificacion,c.nombre_usuario_calificado,c.titulo_gauchada FROM calificaciones c Where c.id_usuario_calificador='".$id."'");
+        return $consulta;
+    }
+    
+    function obtenerCalificacionesRecibidas($id){
+        $consulta = $this->db->query("SELECT c.calificacion,c.nombre_usuario_calificador,c.titulo_gauchada FROM calificaciones c Where c.id_usuario='".$id."'");
+        return $consulta;
     }
 }    

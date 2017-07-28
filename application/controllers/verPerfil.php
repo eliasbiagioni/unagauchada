@@ -6,6 +6,7 @@ class verPerfil extends CI_Controller {
         parent::__construct();
         $this->load->library('javascript');
         $this->load->model('usuario_model');
+        $this->load->model('calificacion_model');
         $this->load->model('Publicar_gauchada_model');
         $this->load->database();
     }
@@ -105,4 +106,24 @@ class verPerfil extends CI_Controller {
         $this->load->view('usuariosSinCalificar',$parameter);
     }
 
+    function calificaciones(){
+        if($_GET['tipo'] == 0){
+            $calificacionesDadas = $this->calificacion_model->obtenerCalificacionesDadas($this->session->userdata('id'));
+            if($calificacionesDadas->num_rows() == 0){
+                $parameter['mensaje'] = 'No haz dado ninguna calificación.';
+            }else{
+                $parameter['mensaje'] = 'Calificaciones dadas';
+                $parameter['lista_calificaciones'] = $calificacionesDadas->result();
+            }
+        }else{
+            $calificacionesRecibidas = $this->calificacion_model->obtenerCalificacionesRecibidas($this->session->userdata('id'));
+            if($calificacionesRecibidas->num_rows() == 0){
+                $parameter['mensaje'] = 'No haz recibido ninguna calificación.';
+            }else{
+                $parameter['mensaje'] = 'Calificaciones recibidas';
+                $parameter['lista_calificaciones'] = $calificacionesRecibidas->result();
+            }
+        }
+        $this->load->view('calificaciones',$parameter);
+    }
 }

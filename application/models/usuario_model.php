@@ -67,4 +67,9 @@ class Usuario_model extends CI_Model{
         $consulta = $this->db->query("SELECT ur.nombre_usuario,ur.apellido_usuario,f.titulo_favor,f.id_favor,ur.id_usuario FROM `usuarios_registrados` ur INNER JOIN `se_postula` sp ON (ur.id_usuario=sp.id_usuario) INNER JOIN `favores` f ON (sp.id_favor=f.id_favor) WHERE sp.estado='Aceptado' AND f.id_usuario_dueño='".$idLogueado."' AND NOT EXISTS (SELECT * FROM calificaciones c WHERE c.id_favor=sp.id_favor)");
         return $consulta;
     }
+    
+    function obtenerNombre($id){
+        $consulta = $this->db->query("SELECT ur.nombre_usuario,ur.apellido_usuario FROM usuarios_registrados ur WHERE id_usuario='".$id."'");
+        return $consulta->result()[0];
+    }   
 }

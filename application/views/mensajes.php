@@ -33,6 +33,14 @@
                         <li><a href="<?php echo base_url()?>registrousuario">Registrarse</a></li>
                         <li><a href="<?php echo base_url()?>iniciosesion">Iniciar sesión</a></li>
                         <li><a href="<?php echo base_url()?>inicio">Volver al inicio</a></li>
+                        <?php break;
+                case "Logro almacenado correctamente": ?>
+                        <li><a href="<?= base_url().'administrar/listadoDeLogros' ?>">Volver al listado de logros</a></li>
+                        <li><a href="<?= base_url() ?>publicar_gauchada/volverAInicio">Volver a la pagina de inicio</a></li>
+                        <?php break;
+                case "Logro eliminado correctamente": ?>
+                        <li><a href="<?= base_url().'administrar/listadoDeLogros' ?>">Volver al listado de logros</a></li>
+                        <li><a href="<?= base_url() ?>publicar_gauchada/volverAInicio">Volver a la pagina de inicio</a></li>
                         <?php break;    
                 default:  ?>
                         <li><a href="<?= base_url() ?>publicar_gauchada/volverAInicio">Volver a la pagina de inicio</a></li>

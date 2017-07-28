@@ -3,11 +3,11 @@
 class Creditos extends CI_Controller {
 
 	public function __construct(){
-        parent::__construct();
-        $this->load->model('mandarDatos');
-        $this->load->library('javascript');
-        $this->load->database();
-    }
+            parent::__construct();
+            $this->load->model('mandarDatos');
+            $this->load->library('javascript');
+            $this->load->database();
+        }
 
 	public function index(){
 		$parameter['title'] = 'Una Gauchada';
@@ -67,8 +67,10 @@ class Creditos extends CI_Controller {
 		$data = array(
                     'cantidadCreditos' => $creditos,
                     'id' => $this->session->userdata('id'),
+                    'valor_compra' => ($creditos*50),
                     );
                 $nuevosCreditos = $this -> mandarDatos -> almacenar_creditos($data);
+                $this->mandarDatos->registrarCompra($data);
 		$this->session->set_userdata('creditos_usuario',$nuevosCreditos); 
                 $parametro['mensaje'] = 'La compra se ha realizado exitosamente';
                 $this->load->view('mensajes',$parametro);

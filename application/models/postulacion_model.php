@@ -22,7 +22,7 @@ class Postulacion_model extends CI_Model {
         }
         
     function postulantes($id_favor){
-        $consulta = $this->db->query("SELECT tr.nombre_reputacion, ur.telefono_usuario,ur.mail_usuario,ur.id_usuario,ur.nombre_usuario,ur.apellido_usuario,ur.puntos_usuario,sp.comentario,sp.respuesta,sp.id_postulacion,sp.estado FROM `se_postula` sp INNER JOIN `usuarios_registrados` ur ON (sp.id_usuario=ur.id_usuario) INNER JOIN `tabla_reputacion` tr WHERE id_favor='".$id_favor."' AND ur.puntos_usuario BETWEEN tr.puntaje_minimo AND tr.puntaje_maximo ORDER BY ur.puntos_usuario DESC");
+        $consulta = $this->db->query("SELECT ur.telefono_usuario,ur.mail_usuario,ur.id_usuario,ur.nombre_usuario,ur.apellido_usuario,ur.puntos_usuario,sp.comentario,sp.respuesta,sp.id_postulacion,sp.estado FROM `se_postula` sp INNER JOIN `usuarios_registrados` ur ON (sp.id_usuario=ur.id_usuario) WHERE id_favor='".$id_favor."' ORDER BY ur.puntos_usuario DESC");
         return $consulta;
     }
     
@@ -40,5 +40,9 @@ class Postulacion_model extends CI_Model {
     }
     function eliminarCandidatura($datos){
         $this->db->query("UPDATE se_postula SET estado='"."Pendiente"."' WHERE id_favor='".$datos['id_favor']."'");
+    }
+    public function nombre_logro($id_usuario){
+        $consulta = $this->db->query("SELECT tr.nombre_reputacion, MAX(tr.puntaje_minimo), ur.nombre_usuario,ur.puntos_usuario FROM `usuarios_registrados` ur INNER JOIN `tabla_reputacion` tr WHERE ur.id_usuario='".$id_usuario."' AND tr.puntaje_minimo = (SELECT MAX(tre.puntaje_minimo) FROM `tabla_reputacion` tre WHERE tre.puntaje_minimo <= ur.puntos_usuario)");
+        return $consulta->result()[0];
     }
 }

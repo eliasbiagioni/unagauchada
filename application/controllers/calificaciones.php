@@ -6,6 +6,7 @@ class Calificaciones extends CI_Controller {
         parent::__construct();
         $this->load->model('calificacion_model');
         $this->load->model('usuario_model');
+        $this->load->model('buscarGauchada');
         $this->load->library('form_validation');
         $this->form_validation->set_message('required', ' Campo obligatorio');
         $this->form_validation->set_message('check_default', 'Campo obligatorio');
@@ -40,7 +41,13 @@ class Calificaciones extends CI_Controller {
                     $this->usuario_model->restarPuntos($idusuariocalificar);
                     break;
             }
+            $nombreUsuarioCalificador = $this->usuario_model->obtenerNombre($this->session->userdata('id'));
+            $nombreUsuarioACalificar = $this->usuario_model->obtenerNombre($idusuariocalificar);
+            $tituloGauchada = $this->buscarGauchada->obtenerTituloGauchada($idfavor);
             $datos = array (
+                'nombreusuariocalificador' => $nombreUsuarioCalificador->nombre_usuario.' '.$nombreUsuarioCalificador->apellido_usuario,
+                'nombreusuariocalificar' => $nombreUsuarioACalificar->nombre_usuario.' '.$nombreUsuarioACalificar->apellido_usuario,
+                'titulogauchada' => $tituloGauchada->titulo_favor,
                 'idfavor' => $idfavor,
                 'idusuario' => $idusuariocalificar,
                 'calificacion' => $nombreCalificacion,
