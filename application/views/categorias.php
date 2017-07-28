@@ -17,14 +17,21 @@
                 Bienvenido/a, <?php echo $this->session->userdata('nombre').' '.$this->session->userdata('apellido')?>
         </div>
         <ul id="button">
-                <li><a href="#">Logros</a></li>
-                <li><a href="<?= base_url()?>administrar/verCategorias">Categorías</a></li>
-                <li><a href="#">Ganancias</a></li>
-                <li><a href="#">Ranking de usuarios</a></li>
+                <li><a href="#">Agregar Categoría</a></li>
+                <li><a href="#">Eliminar Categoría</a></li>
+                <li><a href="#">Modificar Categoría</a></li>
                 <li><a href="<?= base_url() ?>publicar_gauchada/volverAInicio">Volver a la pagina de inicio</a></li>
         </ul>
     </div>
+    <div class="centro">
+        <p><h1>Categorías disponibles en el Sistema</h1></p>
+    <?php
+        foreach ($categorias as $categoria) {
+            echo "<h2>$categoria->nombre_categorias</h2>";
+        }
+    ?>
+    <div>
     <hr class="longitud">
-    <h1 class="letra">Area de administración del sistema</h1>
+    </div>
 </body>
 </html>
