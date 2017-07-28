@@ -127,4 +127,5 @@ class VerGauchadaCompleta extends CI_Controller {
         $parameter['mensaje'] = 'Respuesta enviada';
         $this->load->view('mensajes',$parameter);
     }
+    
 }

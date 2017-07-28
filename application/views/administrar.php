@@ -17,9 +17,9 @@
                 Bienvenido/a, <?php echo $this->session->userdata('nombre').' '.$this->session->userdata('apellido')?>
         </div>
         <ul id="button">
-                <li><a href="#">Logros</a></li>
                 <li><a href="<?= base_url()?>administrar/verCategorias">Categorías</a></li>
-                <li><a href="#">Ganancias</a></li>
+                <li><a href="<?= base_url().'administrar/listadoDeLogros' ?>">Logros</a></li>
+                <li><a href="<?= base_url().'administrar/ganancias' ?>">Ganancias</a></li>
                 <li><a href="#">Ranking de usuarios</a></li>
                 <li><a href="<?= base_url() ?>publicar_gauchada/volverAInicio">Volver a la pagina de inicio</a></li>
         </ul>

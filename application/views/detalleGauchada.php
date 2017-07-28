@@ -64,7 +64,7 @@
             <div class="oculto" id="postulantes" >
             <?php if($cant_postulantes == 0){echo 'No hay postulantes';} else { foreach ($postulantes as $usuario) { if(($usuario->estado == 'Aceptado')||($usuario->estado == 'Pendiente')){ ?><hr>
                 <div><p class="letra"><strong> Usuario: </strong><a href="<?= 'verPerfil?id='.$usuario->id_usuario?>"> <?= $usuario->nombre_usuario." ".$usuario->apellido_usuario ?></a></p></div>
-                <div><p class="letra"><strong> Logro: </strong><?= $usuario->nombre_reputacion." ( ".$usuario->puntos_usuario." pts )"?></p></div>
+                <div><p class="letra"><strong> Logro: </strong><?= $this->postulacion_model->nombre_logro($usuario->id_usuario)->nombre_reputacion?></p></div>
                 <div><p class="letra"><strong> Comentario: </strong><?= $usuario->comentario ?></p></div>
                 <div><p class="letra"><strong> Estado: </strong><?= $usuario->estado ?></p></div>
                 <?php if ($usuario->estado == 'Aceptado'){ ?>

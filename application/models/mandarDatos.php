@@ -15,7 +15,20 @@ class mandarDatos extends CI_Model{
         $this->db->query("UPDATE usuarios_registrados SET creditos_usuario=$creditos_nuevos WHERE id_usuario='".$data['id']."'");
         return $creditos_nuevos;
     }
-
+    
+    function registrarCompra($data){
+        $this->db->insert('compras',array(
+            'cantidad_creditos' => $data['cantidadCreditos'],
+            'valor_total' => $data['valor_compra'],
+            'fecha_compra' => date("Y-m-d")
+        ));
+    }
+    
+    function obtenerCompras($data){
+        $consulta = $this->db->query("SELECT * FROM compras WHERE fecha_compra BETWEEN '".$data['primeraFecha']."' AND '".$data['segundaFecha']."' ORDER BY fecha_compra");
+        return $consulta;
+    }
+    
     function almacenarPregunta($data){
         $sql = "INSERT INTO `preguntas` (`id_pregunta`, `contenido_pregunta`, `contenido_respuesta`, `id_favor`, `id_usuario`) VALUES (NULL, '$data[pregunta]', '', '$data[id_favor]', '$data[id_usuario]')";
         $this->db->query($sql);

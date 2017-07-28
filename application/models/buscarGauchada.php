@@ -31,4 +31,9 @@ class buscarGauchada extends CI_Model{
             }
         }
    }
+   
+   function obtenerTituloGauchada($id){
+       $consulta = $this->db->query("SELECT titulo_favor FROM favores WHERE id_favor='".$id."'");
+       return $consulta->result()[0];
+   }
 }
