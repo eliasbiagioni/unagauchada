@@ -13,6 +13,7 @@ class Postulacion_model extends CI_Model {
             'id_usuario' => $datos['idusuario'],
             'comentario' => $datos['comentario'],
             'estado' => 'Pendiente',
+            'titulo_gauchada' => $datos['tituloGauchada']
         ));
     }
     

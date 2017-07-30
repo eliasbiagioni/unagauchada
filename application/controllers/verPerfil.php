@@ -6,6 +6,7 @@ class verPerfil extends CI_Controller {
         parent::__construct();
         $this->load->library('javascript');
         $this->load->model('usuario_model');
+        $this->load->model('buscarGauchada');
         $this->load->model('calificacion_model');
         $this->load->model('Publicar_gauchada_model');
         $this->load->database();
@@ -73,7 +74,14 @@ class verPerfil extends CI_Controller {
 	}
 
 	public function verGauchadasQueMePostule(){
-
+            $gauchadas = $this->buscarGauchada->obtenerGauchadasCandidato($this->session->userdata('id'));
+            if($gauchadas->num_rows() == 0){
+                $parameter['mensaje'] = 'No te haz candidateado en ninguna gauchada.';
+            }else{
+                $parameter['mensaje'] = 'Gauchadas en las que soy/fui candidato.';
+                $parameter['gauchadas'] = $gauchadas->result();
+            }
+            $this->load->view('gauchadasCandidato',$parameter);
 	}
 
 	public function obtener_imagen(){
