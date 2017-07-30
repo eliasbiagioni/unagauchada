@@ -4,15 +4,49 @@ class Administrar extends CI_Controller {
     
     public function __construct(){
         parent::__construct();
+        $this->load->model('categorias_model');
         $this->load->model('logros_model');
         $this->load->model('mandarDatos');
         $this->load->library('form_validation');
         $this->validaciones();
-        }
+    }
      
     public function index(){
         $this->load->view('administrar');
-    }    
+    }
+
+
+    public function verCategorias(){
+    	$parametro['categorias'] = $this->categorias_model->obtenerCategorias();
+    	$this->load->view('categorias',$parametro);
+    }
+
+    public function agregarCategoria(){
+        $this->load->view('agregarCat');
+    }
+
+    public function mandarNuevaCategoria(){
+        $parametro['nombre'] = $this->input->post('nombreCategoria');
+        $this->categorias_model->mandarCategoria($parametro);
+    }
+
+
+    public function eliminarCategoria(){
+        $parametro['id_categoria'] = $this->input->get("id");
+        $this->categorias_model->eliminarCategoria($parametro);
+    }
+
+    public function editarCategoria(){
+        $parametro['id'] = $this->input->get("id");
+        $parametro['nombre'] = $this->input->get("nombre");
+        $this->load->view('editarCategoria',$parametro);
+    }
+
+    public function mandarModificada(){
+        $parametro['id'] = $this->input->post("id");
+        $parametro['nombre'] = $this->input->post("nuevoNombre");
+        $this->categorias_model->modificar($parametro);
+    }
     
     public function listadoDeLogros(){
         $logros = $this->logros_model->obtenerLogros();
