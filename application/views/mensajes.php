@@ -41,7 +41,10 @@
                 case "Logro eliminado correctamente": ?>
                         <li><a href="<?= base_url().'administrar/listadoDeLogros' ?>">Volver al listado de logros</a></li>
                         <li><a href="<?= base_url() ?>publicar_gauchada/volverAInicio">Volver a la pagina de inicio</a></li>
-                        <?php break;    
+                        <?php break;
+                case "Se ha eliminado su cuenta. Gracias por utilizar nuestro sistema.": ?>
+                        <li><a href="<?php echo base_url()?>inicio">Volver al inicio</a></li>
+                        <?php break;   
                 default:  ?>
                         <li><a href="<?= base_url() ?>publicar_gauchada/volverAInicio">Volver a la pagina de inicio</a></li>
                         <?php break; } ?>

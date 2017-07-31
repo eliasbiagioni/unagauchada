@@ -82,4 +82,8 @@ class Usuario_model extends CI_Model{
         $result = $this->db->query($sql);
         return $result->result();
     }
+    
+    function eliminarUsuario($idLogueado){
+        $this->db->query("DELETE FROM `usuarios_registrados` WHERE id_usuario='".$idLogueado."'");
+    }
 }

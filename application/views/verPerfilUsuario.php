@@ -20,7 +20,9 @@
             <ul id="button">
             <?php if ($propio == 1) {?>
                 <li><a href="<?= base_url().'verPerfil/editarPerfil' ?>">Editar perfil</a></li>
-                <li><a OnClick="if (! confirm('¿Esta seguro que desea eliminar su cuenta?')) return false;" href="<?= base_url().'verPerfil/eliminarCuenta' ?>">Eliminar cuenta</a></li>
+                <?php if($this->session->userdata('es_administrador') == 0) { ?>
+                    <li><a OnClick="if (! confirm('¿Esta seguro que desea eliminar su cuenta?')) return false;" href="<?= base_url().'verPerfil/eliminarCuenta' ?>">Eliminar cuenta</a></li>
+                <?php } ?>
                 <li><a href="<?= base_url().'verPerfil/verMisGauchadas' ?>">Ver mis gauchadas pedidas</a></li>
                 <li><a href="<?= base_url().'verPerfil/verGauchadasQueMePostule' ?>">Ver gauchadas a las que fui/soy candidato</a></li>
             <?php } ?>

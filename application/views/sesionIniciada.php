@@ -20,7 +20,6 @@
                 <?php if (isset($soloVolver)) { ?>
                     <li><a href="<?= base_url().'verPerfil/usuariosSinCalificar' ?>">Usuarios sin calificar</a></li>
                     <li><a href="<?= base_url().'verPerfil/calificaciones?tipo=0' ?>">Calificaciones dadas</a></li>
-                    <li><a href="<?= base_url().'verPerfil/calificaciones?tipo=1' ?>">Calificaciones recibidas</a></li>
                     <li><a href="<?= base_url().'verPerfil?mail='.$this->session->userdata('email') ?>">Volver a tu Perfil</a></li>
                 <?php } else { ?>
                 <li>  <?= form_open_multipart("publicar_gauchada/busqueda")?><input type="search" name="buscar" placeholder="Título de la Gauchada" size="40">

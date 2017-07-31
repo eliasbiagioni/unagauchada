@@ -134,4 +134,19 @@ class verPerfil extends CI_Controller {
         }
         $this->load->view('calificaciones',$parameter);
     }
+    
+    function eliminarCuenta(){
+        $idLogueado = $this->session->userdata('id');
+        $consultaUsuariosSinCalificar = $this->usuario_model->usuariosSinCalificar($idLogueado);
+        if($consultaUsuariosSinCalificar->num_rows() > 0){
+            echo "<script>
+            alert('Necesitas calificar a los usuarios pendientes para poder publicar una nueva gauchada.');
+            window.location.href='" . base_url() . "verPerfil/usuariosSinCalificar';
+            </script>";
+        }else{
+            $this->usuario_model->eliminarUsuario($idLogueado);
+            $parameter['mensaje'] = 'Se ha eliminado su cuenta. Gracias por utilizar nuestro sistema.';
+            $this->load->view('mensajes',$parameter);
+        }
+    }
 }
