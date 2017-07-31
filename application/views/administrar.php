@@ -20,7 +20,7 @@
                 <li><a href="<?= base_url()?>administrar/verCategorias">Categorías</a></li>
                 <li><a href="<?= base_url().'administrar/listadoDeLogros' ?>">Logros</a></li>
                 <li><a href="<?= base_url().'administrar/ganancias' ?>">Ganancias</a></li>
-                <li><a href="#">Ranking de usuarios</a></li>
+                <li><a href="<?= base_url().'administrar/ranking' ?>">Ranking de usuarios</a></li>
                 <li><a href="<?= base_url() ?>publicar_gauchada/volverAInicio">Volver a la pagina de inicio</a></li>
         </ul>
     </div>

@@ -72,4 +72,14 @@ class Usuario_model extends CI_Model{
         $consulta = $this->db->query("SELECT ur.nombre_usuario,ur.apellido_usuario FROM usuarios_registrados ur WHERE id_usuario='".$id."'");
         return $consulta->result()[0];
     }   
+
+    function obtenerRanking($data){
+        if ($data['cuantos'] != -1)
+            $sql = "SELECT * FROM usuarios_registrados ORDER BY puntos_usuario DESC LIMIT $data[cuantos]";
+        else {
+            $sql = "SELECT * FROM usuarios_registrados ORDER BY puntos_usuario DESC";
+        }
+        $result = $this->db->query($sql);
+        return $result->result();
+    }
 }

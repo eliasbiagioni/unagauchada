@@ -7,6 +7,7 @@ class Administrar extends CI_Controller {
         $this->load->model('categorias_model');
         $this->load->model('logros_model');
         $this->load->model('mandarDatos');
+        $this->load->model('usuario_model');
         $this->load->library('form_validation');
         $this->validaciones();
     }
@@ -193,6 +194,17 @@ class Administrar extends CI_Controller {
          $correccion = explode('/', $fecha);
          $fecha_sql = $correccion[2]."-".$correccion[1]."-".$correccion[0];
          return $fecha_sql;
+     }
+
+     function ranking(){
+        if (isset($_GET['cuantos'])){
+            $parametro['cuantos'] = $_GET['cuantos'];
+        }
+        else {
+            $parametro['cuantos'] = 5;
+        }
+        $parametro['usuarios'] = $this->usuario_model->obtenerRanking($parametro);
+        $this->load->view('ranking',$parametro);
      }
 }
 

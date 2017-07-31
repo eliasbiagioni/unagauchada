@@ -47,14 +47,23 @@ class Categorias_model extends CI_Model {
     }
 
     function modificar($data){
-        $sql = "UPDATE categorias SET nombre_categorias='$data[nombre]' WHERE id_categoria=$data[id]";
+        $sql = "SELECT * FROM categorias WHERE nombre_categorias='$data[nombre]'";
         $result = $this->db->query($sql);
-        if ($result){
-            $parametro['mensaje'] = "Se ha modificado la categoria";
-            $this->load->view('mensajes',$parametro);
+        if ($result->num_rows() == 0){
+            $sql = "UPDATE categorias SET nombre_categorias='$data[nombre]' WHERE id_categoria=$data[id]";
+            $result = $this->db->query($sql);
+            if ($result){
+                $parametro['mensaje'] = "Se ha modificado la categoria";
+                $this->load->view('mensajes',$parametro);
+            }
+            else{
+                $parametro['mensaje'] = "Ha habido un error al intentar modificar la categoria";
+                $this->load->view('mensajes',$parametro);
+            }
         }
-        else{
-            $parametro['mensaje'] = "Ha habido un error al intentar modificar la categoria";
+        else
+            {
+            $parametro['mensaje'] = "¡Error! No se puede modificar una categoria con un nombre ya existente";
             $this->load->view('mensajes',$parametro);
         }
     }
