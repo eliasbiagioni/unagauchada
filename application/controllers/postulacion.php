@@ -6,6 +6,7 @@ class Postulacion extends CI_Controller {
         parent::__construct();
         $this->load->model('postulacion_model');
         $this->load->library('form_validation');
+        $this->load->model('buscarGauchada');
         $this->form_validation->set_message('required', 'Usted debe comentar el motivo de su postulacion');
         }
     
@@ -36,10 +37,12 @@ class Postulacion extends CI_Controller {
         if($this->form_validation->run() == FALSE){
             $this->index();
         }else{
+            $tituloGauchada = $this->buscarGauchada->obtenerTituloGauchada($_GET['idfavor']);
             $datos = array(
                 'idfavor' => $_GET['idfavor'],
                 'idusuario' => $_GET['idpostulante'],
                 'comentario' => $this->input->post('comentario'),
+                'tituloGauchada' => $tituloGauchada->titulo_favor
             );
             $this->postulacion_model->postularNuevoCandidato($datos);
             $parameter['mensaje'] = 'Postulación exitosa';

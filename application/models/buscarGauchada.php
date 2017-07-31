@@ -36,4 +36,9 @@ class buscarGauchada extends CI_Model{
        $consulta = $this->db->query("SELECT titulo_favor FROM favores WHERE id_favor='".$id."'");
        return $consulta->result()[0];
    }
+   
+   function obtenerGauchadasCandidato($id){
+       $consulta = $this->db->query("SELECT estado,titulo_gauchada FROM se_postula WHERE id_usuario='".$id."'");
+       return $consulta;
+   }
 }
