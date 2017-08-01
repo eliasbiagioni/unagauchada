@@ -101,12 +101,42 @@ class Iniciosesion extends CI_Controller {
     }
 
     function olvidoContrasenia(){
-        $parametro['enviado'] = 0;
-        $this->load->view('olvido',$parametro);
+        $this->load->view('olvido');
     }
 
     function recibirCodigo(){
-        $this->load->view('esperarCodigo');
+        $parametro['email'] = $this->input->post('email');
+        $parametro['telefono'] = $this->input->post('telefono');
+        $result = $this->usuario_model->existeRelacion($parametro);
+        if ($result->num_rows() == 1) {
+            $resultado = $result->result();
+            $parametro['mail'] = $resultado[0]->mail_usuario;
+            $this->load->view('esperarCodigo',$parametro);
+        }
+        else {
+            $parametro['mensaje'] = "El telefono no coincide con el mail ingresado";
+            $this->load->view('mensajes',$parametro);
+        }
+
+    }
+
+    function nuevaContrasenia(){
+        $parametro['email'] = $this->input->post('email');
+        $this->load->view('cambiarContra',$parametro);
+    }
+
+    function cambiarLaPassword(){
+        $parametro['password'] = $this->input->post('contra1');
+        $parametro['email'] = $this->input->post('email');
+        $result = $this->usuario_model->changePassword($parametro);
+        if ($result){
+            $parametro['mensaje'] = "La contraseña se ha actualizado correctamente";
+            $this->load->view('mensajes',$parametro);
+        }
+        else{
+            $parametro['mensaje'] = "Ha habido un error al intentar actualizar la contraseña";
+            $this->load->view('mensajes',$parametro);
+        }
     }
 
 }

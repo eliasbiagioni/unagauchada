@@ -86,4 +86,16 @@ class Usuario_model extends CI_Model{
     function eliminarUsuario($idLogueado){
         $this->db->query("DELETE FROM `usuarios_registrados` WHERE id_usuario='".$idLogueado."'");
     }
+
+    function existeRelacion($data){
+        $sql = "SELECT * FROM usuarios_registrados WHERE telefono_usuario=$data[telefono] AND mail_usuario='$data[email]'";
+        $result = $this->db->query($sql);
+        return $result;
+    }
+
+    function changePassword($data){
+        $sql = "UPDATE usuarios_registrados SET contraseña_usuario='$data[password]' WHERE mail_usuario='$data[email]'";
+        $result = $this->db->query($sql);
+        return $result;
+    }
 }

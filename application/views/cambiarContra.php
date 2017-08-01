@@ -18,13 +18,18 @@
     </div>
     <h1>Olvido de Contraseña</h1>
     <div>
-          Por favor, ingrese su email y número de teléfono para recibir el código de restauración.
+          Se está recuperando la contraseña para el usuario con email <?= $email?>
           <br><br>
-          <form action="<?= base_url()?>iniciosesion/recibirCodigo" method="post" name="olvido" onsubmit="return codigoValido()">
-            Email: <input type="text" name="email">
-            Número de Teléfono: <input type="text" name="telefono">
-                                <input type="submit" value="Reestablecer">
+          ¡Código correcto! Por favor, ingrese su nueva contraseña y su confirmación para completar la restauración.
+          <br><br>
+
+          <form onsubmit="return contraValida()" method="post" name="nuevaPassword" action="<?= base_url()?>iniciosesion/cambiarLaPassword">
+            Contraseña: <input type="password" name="contra1">
+            Confirmación: <input type="password" name="contra2">
+            <input type="submit" value="Cambiar contraseña">
+            <input type="hidden" name="email" value="<?= $email?>">
           </form>
+         
    </div>
 </body>
 </html>

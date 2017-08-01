@@ -48,8 +48,20 @@ function noVacio2(){
 
 function codigoValido(){
 	var telefono = document.forms['olvido']['telefono'].value;
+	var email = document.forms['olvido']['email'].value;
 	var numeros = /^[0-9]+$/;
+	var mailValido = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/;
 
+	
+	if (email == ""){
+		alert('El email es obligatorio');
+		return false;
+	}
+
+	if (! mailValido.test(email)){
+		alert('El email ingresado no es valido');
+		return false;
+	}
 	if (! numeros.test(telefono)){
 		alert('El numero de telefono debe contener solo numeros');
 		return false;
@@ -71,6 +83,16 @@ function existeCodigo(){
 		if (codigo == 1212) return true;
 	else{
 		alert('Codigo incorrecto');
+		return false;
+	}
+}
+
+function contraValida(){
+	var contra1 = document.forms['nuevaPassword']['contra1'].value;
+	var contra2 = document.forms['nuevaPassword']['contra2'].value;
+
+	if (!(contra1 == contra2)){
+		alert('Las contraseñas no coinciden');
 		return false;
 	}
 }

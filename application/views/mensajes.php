@@ -44,7 +44,16 @@
                         <?php break;
                 case "Se ha eliminado su cuenta. Gracias por utilizar nuestro sistema.": ?>
                         <li><a href="<?php echo base_url()?>inicio">Volver al inicio</a></li>
-                        <?php break;   
+                        <?php break;
+                case "El telefono no coincide con el mail ingresado": ?>
+                         <li><a href="<?php echo base_url()?>inicio">Volver al inicio</a></li>
+                        <?php break;
+                case "La contraseña se ha actualizado correctamente": ?>
+                         <li><a href="<?php echo base_url()?>inicio">Volver al inicio</a></li>
+                        <?php break;
+                case "Ha habido un error al intentar actualizar la contraseña": ?>
+                         <li><a href="<?php echo base_url()?>inicio">Volver al inicio</a></li>
+                        <?php break;
                 default:  ?>
                         <li><a href="<?= base_url() ?>publicar_gauchada/volverAInicio">Volver a la pagina de inicio</a></li>
                         <?php break; } ?>

@@ -18,11 +18,14 @@
     </div>
     <h1>Olvido de Contraseña</h1>
     <div>
-          Se ha enviado un código de restauración via WhastApp a su teléfono. Por favor, ingrese el código para continuar.
+          Se está recuperando la contraseña para el usuario con email <?= $mail?>
           <br><br>
-          <form  name="codigos" method="POST" onsubmit="return existeCodigo()">
+          Se ha enviado un código de restauración vía WhastApp a su teléfono. Por favor, ingrese el código para continuar.
+          <br><br>
+          <form  action="<?= base_url()?>iniciosesion/nuevaContrasenia" name="codigos" method="POST" onsubmit="return existeCodigo()">
             Código: <input type="text" name="codigo">
                   <input type="submit" value="Confirmar código">
+                  <input type="hidden" name="email" value="<?= $mail?>">
           </form>
    </div>
 </body>
