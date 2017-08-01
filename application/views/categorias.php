@@ -26,7 +26,7 @@
         <br><hr>
     <?php
         foreach ($categorias as $categoria) {
-            if ($categoria->nombre_categorias != "general"){
+            if ($categoria->nombre_categorias != "General"){
             echo"<div>";
                 echo "<p><h2>$categoria->nombre_categorias<h2></p>";
                 ?>

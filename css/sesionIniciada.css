@@ -143,3 +143,14 @@ a{
     text-decoration: none;
     color: orange;
 }
+
+.ranking{
+    border: 3px solid #ff955c;
+    width: 50%;
+    margin: auto;
+    padding: 5px;
+}
+
+hr{
+    color: #ff955c;
+}

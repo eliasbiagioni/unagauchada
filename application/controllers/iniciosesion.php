@@ -90,7 +90,7 @@ class Iniciosesion extends CI_Controller {
         $this->load->view('verPerfilUsuario');
     }
     
-function validarPublicacionGauchada(){
+    function validarPublicacionGauchada(){
         $cantCreditos = $this->usuario_model->cant_creditos($this->session->userdata('id'))->creditos_usuario;
         if($cantCreditos > 0){
             header('Location: '.base_url().'publicar_gauchada?tipo=0');
@@ -99,4 +99,14 @@ function validarPublicacionGauchada(){
             $this->load->view('mensajes',$parametro);
         } 
     }
+
+    function olvidoContrasenia(){
+        $parametro['enviado'] = 0;
+        $this->load->view('olvido',$parametro);
+    }
+
+    function recibirCodigo(){
+        $this->load->view('esperarCodigo');
+    }
+
 }

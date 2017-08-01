@@ -42,7 +42,7 @@
     ?>
         <h1><?= $frase?></h1>
     <br>
-    <hr>
+    <div class="ranking">
     <?php
         $cant = 0;
         foreach ($usuarios as $usuario){
@@ -58,5 +58,6 @@
             <?php
         }
     ?>
+    </div>
     </body>
 </html>

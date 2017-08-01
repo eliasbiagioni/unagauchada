@@ -45,3 +45,32 @@ function noVacio2(){
 		return false;
 	}
 }
+
+function codigoValido(){
+	var telefono = document.forms['olvido']['telefono'].value;
+	var numeros = /^[0-9]+$/;
+
+	if (! numeros.test(telefono)){
+		alert('El numero de telefono debe contener solo numeros');
+		return false;
+	}
+
+	if (telefono.length < 8){
+		alert('Cantidad de numeros incorrecta');
+		return false;
+	}
+}
+
+function existeCodigo(){
+	var codigo = document.forms['codigos']['codigo'].value;
+
+	if (codigo == 1234) return true;
+	else
+		if(codigo == 7070) return true;
+	else
+		if (codigo == 1212) return true;
+	else{
+		alert('Codigo incorrecto');
+		return false;
+	}
+}

@@ -31,7 +31,7 @@
        </div>
        <div>
            <div><?= form_submit('','Iniciar sesión');?></div>
-           <div><a class="olvidoContraseña" href="#">¿Olvidaste tu contraseña?</a></div>
+           <div><a class="olvidoContraseña" href="<?= base_url()?>iniciosesion/olvidoContrasenia">¿Olvidaste tu contraseña?</a></div>
        </div>
        <?= form_close();?>
    </div>
